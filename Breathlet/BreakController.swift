@@ -50,7 +50,7 @@ final class BreakController: ObservableObject {
     }
 
     func triggerBreakNow() {
-        beginBreak()
+        beginBreak(kind: .eye)
     }
 
     func skipBreak() {
@@ -78,7 +78,7 @@ final class BreakController: ObservableObject {
 
         remainingWorkSeconds -= 1
         if remainingWorkSeconds <= 0 {
-            beginBreak()
+            beginBreak(kind: nextScheduledBreakKind)
         }
     }
 
@@ -87,24 +87,28 @@ final class BreakController: ObservableObject {
         return idle >= 5 * 60
     }
 
-    private func beginBreak() {
-        let isStandupBreak = shouldStartStandupBreak
+    private func beginBreak(kind: BreakKind) {
+        SettingsWindowController.shared.hideForBreak()
+        overlay.hide()
         isBreakActive = true
-        let duration = isStandupBreak
+        let duration = kind == .standup
             ? max(preferences.standupBreakDurationMinutes, 1) * 60
             : max(preferences.eyeBreakDurationSeconds, 1)
         breakEndsAt = Date().addingTimeInterval(TimeInterval(duration))
-        overlay.show(duration: duration, preferences: preferences) { [weak self] in
+
+        let healthTip = HealthTipProvider.shared.getNextTip()
+
+        overlay.show(duration: duration, preferences: preferences, healthTip: healthTip, message: preferences.breakMessage) { [weak self] in
             self?.endBreak(playSound: false)
         }
     }
 
-    private var shouldStartStandupBreak: Bool {
-        guard preferences.enableStandupBreak else { return false }
+    private var nextScheduledBreakKind: BreakKind {
+        guard preferences.enableStandupBreak else { return .eye }
 
         completedEyeBreaks += 1
         let frequency = max(preferences.standupEveryEyeBreaks, 1)
-        return completedEyeBreaks.isMultiple(of: frequency)
+        return completedEyeBreaks.isMultiple(of: frequency) ? .standup : .eye
     }
 
     private func endBreak(playSound: Bool) {

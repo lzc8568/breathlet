@@ -8,6 +8,8 @@ A tiny native macOS menu bar app that reminds you to rest after a focused work i
 - Manual "Take Break Now" and timer reset actions.
 - Full-screen break mask across all displays.
 - Configurable eye break interval and duration.
+- Animated break overlay with rotating wellness action symbols.
+- Optional gradual wake-up fade before a break ends.
 - General preferences matching the reference screenshots.
 - Break preferences with Schedule and Appearance tabs.
 - Optional fade-in mask, break-end sound, and mouse-inactivity pause.
@@ -23,6 +25,8 @@ make build
 make install
 make dmg
 ```
+
+`make install` builds the Release app, installs the current build to `/Applications/Breathlet.app`, and launches it.
 
 ## Release
 

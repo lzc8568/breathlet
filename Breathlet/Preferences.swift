@@ -48,5 +48,8 @@ final class Preferences: ObservableObject {
     @AppStorage("maskOpacityPercent") var maskOpacityPercent = 82
     @AppStorage("breakMessage") var breakMessage = "Time to take a break"
 
+    @AppStorage("enableGradualWakeUp") var enableGradualWakeUp = true
+    @AppStorage("gradualWakeUpSeconds") var gradualWakeUpSeconds = 5
+
     private init() {}
 }

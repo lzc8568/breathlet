@@ -5,18 +5,24 @@ import SwiftUI
 final class BreakOverlayManager {
     private var windows: [NSWindow] = []
 
-    func show(duration: Int, preferences: Preferences, onSkip: @escaping () -> Void) {
+    func show(
+        duration: Int,
+        preferences: Preferences,
+        healthTip: HealthTip,
+        message: String,
+        onSkip: @escaping () -> Void
+    ) {
         hide()
 
         for screen in NSScreen.screens {
-            let window = NSWindow(
+            let window = BreakOverlayWindow(
                 contentRect: screen.frame,
                 styleMask: [.borderless],
                 backing: .buffered,
                 defer: false
             )
             window.level = .screenSaver
-            window.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .stationary]
+            window.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .stationary, .ignoresCycle]
             window.backgroundColor = .clear
             window.isOpaque = false
             window.hasShadow = false
@@ -24,14 +30,18 @@ final class BreakOverlayManager {
 
             let view = BreakOverlayView(
                 duration: duration,
-                message: preferences.breakMessage,
                 opacity: Double(preferences.maskOpacityPercent) / 100.0,
+                healthTip: healthTip,
+                message: message,
+                enableGradualWakeUp: preferences.enableGradualWakeUp,
+                gradualWakeUpSeconds: preferences.gradualWakeUpSeconds,
                 onSkip: onSkip
             )
             window.contentView = NSHostingView(rootView: view)
             window.alphaValue = preferences.fadeInMaskWindow ? 0 : 1
-            window.makeKeyAndOrderFront(nil)
             NSApp.activate(ignoringOtherApps: true)
+            window.makeKeyAndOrderFront(nil)
+            window.orderFrontRegardless()
 
             if preferences.fadeInMaskWindow {
                 NSAnimationContext.runAnimationGroup { context in
@@ -52,41 +62,84 @@ final class BreakOverlayManager {
     }
 }
 
+private final class BreakOverlayWindow: NSWindow {
+    override var canBecomeKey: Bool { true }
+    override var canBecomeMain: Bool { true }
+}
+
 struct BreakOverlayView: View {
     let duration: Int
-    let message: String
     let opacity: Double
+    let healthTip: HealthTip
+    let message: String
+    let enableGradualWakeUp: Bool
+    let gradualWakeUpSeconds: Int
     let onSkip: () -> Void
 
     @State private var remaining: Int
     @State private var timer: Timer?
+    @State private var fadeTask: Task<Void, Never>?
+    @State private var fadeAlpha: Double = 1.0
+    @State private var isIconAnimating = false
+    @State private var actionIndex = 0
+    @State private var actionTick = 0
 
-    init(duration: Int, message: String, opacity: Double, onSkip: @escaping () -> Void) {
+    init(
+        duration: Int,
+        opacity: Double,
+        healthTip: HealthTip,
+        message: String,
+        enableGradualWakeUp: Bool,
+        gradualWakeUpSeconds: Int,
+        onSkip: @escaping () -> Void
+    ) {
         self.duration = max(duration, 1)
-        self.message = message
         self.opacity = opacity
+        self.healthTip = healthTip
+        self.message = message
+        self.enableGradualWakeUp = enableGradualWakeUp
+        self.gradualWakeUpSeconds = max(gradualWakeUpSeconds, 1)
         self.onSkip = onSkip
         _remaining = State(initialValue: max(duration, 1))
     }
 
     var body: some View {
         ZStack {
-            Color.black.opacity(opacity)
+            Color.black.opacity(opacity * fadeAlpha)
                 .ignoresSafeArea()
 
-            VStack(spacing: 22) {
-                Image(systemName: "figure.mind.and.body")
-                    .font(.system(size: 72, weight: .regular))
-                    .foregroundStyle(.white)
+            VStack(spacing: 24) {
+                ZStack {
+                    Image(systemName: currentActionSymbol)
+                        .font(.system(size: 88, weight: .light))
+                        .foregroundStyle(.white.opacity(isIconAnimating ? 0.72 : 0.94))
+                        .symbolRenderingMode(.hierarchical)
+                        .scaleEffect(isIconAnimating ? 1.08 : 0.96)
+                        .offset(x: actionOffset)
+                        .id(currentActionSymbol)
+                        .transition(.asymmetric(
+                            insertion: .scale(scale: 0.82).combined(with: .opacity),
+                            removal: .scale(scale: 1.12).combined(with: .opacity)
+                        ))
+                }
+                .frame(width: 150, height: 110)
+                .animation(
+                    .easeInOut(duration: 1.8).repeatForever(autoreverses: true),
+                    value: isIconAnimating
+                )
+                .animation(.easeInOut(duration: 0.38), value: currentActionSymbol)
 
-                Text(message)
-                    .font(.system(size: 42, weight: .semibold))
-                    .foregroundStyle(.white)
+                if !trimmedMessage.isEmpty {
+                    Text(trimmedMessage)
+                        .font(.system(size: 42, weight: .semibold))
+                        .foregroundStyle(.white)
+                }
 
                 Text(timeString)
-                    .font(.system(size: 76, weight: .bold, design: .rounded))
+                    .font(.system(size: 72, weight: .bold, design: .rounded))
                     .monospacedDigit()
                     .foregroundStyle(.white)
+                    .padding(.top, 4)
 
                 Button("Skip Break") {
                     onSkip()
@@ -98,9 +151,14 @@ struct BreakOverlayView: View {
             }
             .padding(48)
         }
-        .onAppear(perform: startTimer)
+        .onAppear {
+            startTimer()
+            startWakeUpFade()
+            isIconAnimating = true
+        }
         .onDisappear {
             timer?.invalidate()
+            fadeTask?.cancel()
         }
     }
 
@@ -110,13 +168,71 @@ struct BreakOverlayView: View {
         return String(format: "%02d:%02d", minutes, seconds)
     }
 
+    private var trimmedMessage: String {
+        message.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    private var actionSymbols: [String] {
+        var symbols = [
+            healthTip.symbolName,
+            "figure.walk",
+            "figure.stand",
+            "figure.mind.and.body",
+            "figure.strengthtraining.traditional",
+            "hand.raised",
+            "wind"
+        ]
+        symbols.removeAll { $0.isEmpty }
+        return Array(NSOrderedSet(array: symbols)) as? [String] ?? symbols
+    }
+
+    private var currentActionSymbol: String {
+        let symbols = actionSymbols
+        return symbols[actionIndex % symbols.count]
+    }
+
+    private var actionOffset: CGFloat {
+        switch actionIndex % 3 {
+        case 0: return -4
+        case 1: return 4
+        default: return 0
+        }
+    }
+
     private func startTimer() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             MainActor.assumeIsolated {
                 remaining = max(remaining - 1, 0)
+                actionTick += 1
+                if actionTick.isMultiple(of: 2) {
+                    withAnimation(.easeInOut(duration: 0.38)) {
+                        actionIndex = (actionIndex + 1) % actionSymbols.count
+                    }
+                }
                 if remaining == 0 {
                     onSkip()
+                }
+            }
+        }
+    }
+
+    private func startWakeUpFade() {
+        guard enableGradualWakeUp else { return }
+
+        let fadeSeconds = min(gradualWakeUpSeconds, duration)
+        let delaySeconds = max(duration - fadeSeconds, 0)
+
+        fadeTask?.cancel()
+        fadeTask = Task {
+            if delaySeconds > 0 {
+                try? await Task.sleep(for: .seconds(delaySeconds))
+            }
+            guard !Task.isCancelled else { return }
+
+            await MainActor.run {
+                withAnimation(.linear(duration: Double(fadeSeconds))) {
+                    fadeAlpha = 0
                 }
             }
         }

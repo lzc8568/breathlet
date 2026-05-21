@@ -17,9 +17,13 @@ build:
 	xcodebuild -project "$(PROJECT)" -scheme "$(SCHEME)" -configuration "$(CONFIGURATION)" build
 
 install: build
-	@APP_PATH="$$(find "$(DERIVED_DATA)" -path "*/Build/Products/$(CONFIGURATION)/$(APP_NAME)" -maxdepth 8 -print 2>/dev/null | tail -1)"; \
+	@APP_PATH="$$(xcodebuild -project "$(PROJECT)" -scheme "$(SCHEME)" -configuration "$(CONFIGURATION)" -showBuildSettings 2>/dev/null | sed -n 's/^[[:space:]]*TARGET_BUILD_DIR = //p' | tail -1)/$(APP_NAME)"; \
 	if [ -z "$$APP_PATH" ]; then \
-		echo "Could not find built app in $(DERIVED_DATA)"; \
+		echo "Could not determine built app path"; \
+		exit 1; \
+	fi; \
+	if [ ! -d "$$APP_PATH" ]; then \
+		echo "Could not find built app at $$APP_PATH"; \
 		exit 1; \
 	fi; \
 	osascript -e 'tell application "$(PROCESS_NAME)" to quit' 2>/dev/null || true; \
@@ -32,9 +36,13 @@ install: build
 	echo "Installed and launched $(INSTALLED_APP)"
 
 dmg: build
-	@APP_PATH="$$(find "$(DERIVED_DATA)" -path "*/Build/Products/$(CONFIGURATION)/$(APP_NAME)" -maxdepth 8 -print 2>/dev/null | tail -1)"; \
+	@APP_PATH="$$(xcodebuild -project "$(PROJECT)" -scheme "$(SCHEME)" -configuration "$(CONFIGURATION)" -showBuildSettings 2>/dev/null | sed -n 's/^[[:space:]]*TARGET_BUILD_DIR = //p' | tail -1)/$(APP_NAME)"; \
 	if [ -z "$$APP_PATH" ]; then \
-		echo "Could not find built app in $(DERIVED_DATA)"; \
+		echo "Could not determine built app path"; \
+		exit 1; \
+	fi; \
+	if [ ! -d "$$APP_PATH" ]; then \
+		echo "Could not find built app at $$APP_PATH"; \
 		exit 1; \
 	fi; \
 	rm -rf "$(DMG_STAGING)" "$(DMG_PATH)"; \
