@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct TakeABreakApp: App {
+struct BreathletApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @StateObject private var controller: BreakController
 

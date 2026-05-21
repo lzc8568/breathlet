@@ -14,7 +14,7 @@ A tiny native macOS menu bar app that reminds you to rest after a focused work i
 
 ## Build
 
-Open `TakeABreak.xcodeproj` in Xcode and run the `TakeABreak` scheme.
+Open `Breathlet.xcodeproj` in Xcode and run the `Breathlet` scheme.
 
 Or use Make:
 
@@ -27,7 +27,7 @@ Command line build also works once the active developer directory points to full
 
 ```sh
 sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
-xcodebuild -project TakeABreak.xcodeproj -scheme TakeABreak -configuration Debug build
+xcodebuild -project Breathlet.xcodeproj -scheme Breathlet -configuration Debug build
 ```
 
 The current machine is using Command Line Tools only, so `xcodebuild` cannot run here until Xcode is selected.

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A0000012C00000100000001 /* TakeABreakApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000112C00000100000001 /* TakeABreakApp.swift */; };
+		1A0000012C00000100000001 /* BreathletApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000112C00000100000001 /* BreathletApp.swift */; };
 		1A0000022C00000100000001 /* BreakController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000122C00000100000001 /* BreakController.swift */; };
 		1A0000032C00000100000001 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000132C00000100000001 /* Preferences.swift */; };
 		1A0000042C00000100000001 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000142C00000100000001 /* PreferencesView.swift */; };
@@ -16,7 +16,7 @@
 
 /* Begin PBXFileReference section */
 		1A0000102C00000100000001 /* Breathlet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breathlet.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1A0000112C00000100000001 /* TakeABreakApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeABreakApp.swift; sourceTree = "<group>"; };
+		1A0000112C00000100000001 /* BreathletApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathletApp.swift; sourceTree = "<group>"; };
 		1A0000122C00000100000001 /* BreakController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakController.swift; sourceTree = "<group>"; };
 		1A0000132C00000100000001 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		1A0000142C00000100000001 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
@@ -37,21 +37,21 @@
 		1A0000302C00000100000001 = {
 			isa = PBXGroup;
 			children = (
-				1A0000312C00000100000001 /* TakeABreak */,
+				1A0000312C00000100000001 /* Breathlet */,
 				1A0000322C00000100000001 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		1A0000312C00000100000001 /* TakeABreak */ = {
+		1A0000312C00000100000001 /* Breathlet */ = {
 			isa = PBXGroup;
 			children = (
-				1A0000112C00000100000001 /* TakeABreakApp.swift */,
+				1A0000112C00000100000001 /* BreathletApp.swift */,
 				1A0000122C00000100000001 /* BreakController.swift */,
 				1A0000132C00000100000001 /* Preferences.swift */,
 				1A0000142C00000100000001 /* PreferencesView.swift */,
 				1A0000152C00000100000001 /* BreakOverlay.swift */,
 			);
-			path = TakeABreak;
+			path = Breathlet;
 			sourceTree = "<group>";
 		};
 		1A0000322C00000100000001 /* Products */ = {
@@ -65,9 +65,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1A0000402C00000100000001 /* TakeABreak */ = {
+		1A0000402C00000100000001 /* Breathlet */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1A0000902C00000100000001 /* Build configuration list for PBXNativeTarget "TakeABreak" */;
+			buildConfigurationList = 1A0000902C00000100000001 /* Build configuration list for PBXNativeTarget "Breathlet" */;
 			buildPhases = (
 				1A0000502C00000100000001 /* Sources */,
 				1A0000202C00000100000001 /* Frameworks */,
@@ -77,8 +77,8 @@
 			);
 			dependencies = (
 			);
-			name = TakeABreak;
-			productName = TakeABreak;
+			name = Breathlet;
+			productName = Breathlet;
 			productReference = 1A0000102C00000100000001 /* Breathlet.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -97,7 +97,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1A0000802C00000100000001 /* Build configuration list for PBXProject "TakeABreak" */;
+			buildConfigurationList = 1A0000802C00000100000001 /* Build configuration list for PBXProject "Breathlet" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -110,7 +110,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1A0000402C00000100000001 /* TakeABreak */,
+				1A0000402C00000100000001 /* Breathlet */,
 			);
 		};
 /* End PBXProject section */
@@ -130,7 +130,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A0000012C00000100000001 /* TakeABreakApp.swift in Sources */,
+				1A0000012C00000100000001 /* BreathletApp.swift in Sources */,
 				1A0000022C00000100000001 /* BreakController.swift in Sources */,
 				1A0000032C00000100000001 /* Preferences.swift in Sources */,
 				1A0000042C00000100000001 /* PreferencesView.swift in Sources */,
@@ -308,7 +308,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1A0000802C00000100000001 /* Build configuration list for PBXProject "TakeABreak" */ = {
+		1A0000802C00000100000001 /* Build configuration list for PBXProject "Breathlet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1A0000812C00000100000001 /* Debug */,
@@ -317,7 +317,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1A0000902C00000100000001 /* Build configuration list for PBXNativeTarget "TakeABreak" */ = {
+		1A0000902C00000100000001 /* Build configuration list for PBXNativeTarget "Breathlet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1A0000912C00000100000001 /* Debug */,
