@@ -15,44 +15,37 @@ struct PreferencesView: View {
             toolbar
             Divider()
 
-            switch page {
-            case 0:
-                GeneralPreferencesView()
-                    .environmentObject(preferences)
-            case 1:
-                BreakPreferencesView()
-                    .environmentObject(preferences)
-            default:
-                AboutPreferencesView()
+            Group {
+                switch page {
+                case 0:
+                    GeneralPreferencesView()
+                        .environmentObject(preferences)
+                case 1:
+                    BreakPreferencesView()
+                        .environmentObject(preferences)
+                default:
+                    AboutPreferencesView()
+                }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .frame(width: PreferencesWindowMetrics.width, height: PreferencesWindowMetrics.height)
         .background(Color(nsColor: .windowBackgroundColor))
     }
 
     private var toolbar: some View {
-        VStack(spacing: 6) {
-            Text(pageTitle)
-                .font(.system(size: 16, weight: .bold))
-                .padding(.top, 8)
-
+        VStack(spacing: 0) {
             HStack(spacing: 2) {
                 toolbarButton(index: 0, title: "General", symbol: "switch.2")
                 toolbarButton(index: 1, title: "Break", symbol: "gearshape")
                 toolbarButton(index: 2, title: "About", symbol: "info.circle.fill")
             }
-            .padding(.bottom, 12)
         }
         .frame(maxWidth: .infinity)
+        .frame(height: 88)
+        .fixedSize(horizontal: false, vertical: true)
+        .layoutPriority(1)
         .background(.regularMaterial)
-    }
-
-    private var pageTitle: String {
-        switch page {
-        case 0: "General"
-        case 1: "Break"
-        default: "About"
-        }
     }
 
     private func toolbarButton(index: Int, title: String, symbol: String) -> some View {
@@ -75,6 +68,7 @@ struct PreferencesView: View {
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
         .buttonStyle(.plain)
+        .focusable(false)
     }
 }
 
@@ -87,6 +81,29 @@ private struct GeneralPreferencesView: View {
             Toggle("Show time in Menu Bar", isOn: $preferences.showTimeInMenuBar)
             Toggle("Play sound when break ends", isOn: $preferences.playSoundWhenBreakEnds)
             Toggle("Fade in mask window", isOn: $preferences.fadeInMaskWindow)
+
+            Divider()
+
+            HStack(spacing: 16) {
+                Toggle("Enable gradual wake-up fade", isOn: $preferences.enableGradualWakeUp)
+
+                if preferences.enableGradualWakeUp {
+                    Text("Fade duration")
+
+                    Slider(value: Binding(
+                        get: { Double(preferences.gradualWakeUpSeconds) },
+                        set: { preferences.gradualWakeUpSeconds = Int($0) }
+                    ), in: 1...10, step: 1)
+                    .frame(width: 150)
+
+                    Text("\(preferences.gradualWakeUpSeconds) seconds")
+                        .monospacedDigit()
+                        .frame(width: 82, alignment: .leading)
+                }
+            }
+
+            Divider()
+
             Toggle("Pause when mouse inactive for 5 mins", isOn: $preferences.pauseWhenMouseInactive)
             Toggle("Enable standup break", isOn: $preferences.enableStandupBreak)
         }
@@ -129,7 +146,7 @@ private struct BreakPreferencesView: View {
         HStack(spacing: 16) {
             breakList
 
-            VStack(spacing: 0) {
+            VStack(spacing: 8) {
                 Picker("", selection: $selectedTab) {
                     ForEach(BreakSettingsTab.allCases) { tab in
                         Text(tab.title).tag(tab)
@@ -137,7 +154,6 @@ private struct BreakPreferencesView: View {
                 }
                 .pickerStyle(.segmented)
                 .frame(width: 250)
-                .padding(.top, -20)
                 .zIndex(1)
 
                 ZStack {
@@ -261,22 +277,35 @@ private struct AboutPreferencesView: View {
 private struct StepperTextField: View {
     @Binding var value: Int
     let range: ClosedRange<Int>
+    @State private var text = ""
 
     var body: some View {
-        TextField("", value: clampedValue, format: .number)
+        TextField("", text: $text)
             .textFieldStyle(.plain)
             .font(.system(size: 17))
             .padding(.horizontal, 8)
             .frame(width: 170, height: 28)
             .background(Color(nsColor: .textBackgroundColor))
             .overlay(Rectangle().stroke(Color(nsColor: .separatorColor)))
-    }
-
-    private var clampedValue: Binding<Int> {
-        Binding {
-            value
-        } set: { newValue in
-            value = min(max(newValue, range.lowerBound), range.upperBound)
-        }
+            .onAppear {
+                text = "\(value)"
+            }
+            .onChange(of: text) { newText in
+                guard let newValue = Int(newText) else { return }
+                value = min(max(newValue, range.lowerBound), range.upperBound)
+            }
+            .onChange(of: value) { newValue in
+                guard Int(text) != newValue else { return }
+                text = "\(newValue)"
+            }
+            .onSubmit {
+                guard let newValue = Int(text) else {
+                    text = "\(value)"
+                    return
+                }
+                let clampedValue = min(max(newValue, range.lowerBound), range.upperBound)
+                value = clampedValue
+                text = "\(clampedValue)"
+            }
     }
 }

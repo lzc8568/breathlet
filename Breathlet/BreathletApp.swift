@@ -73,12 +73,12 @@ private struct MenuBarContentView: View {
 }
 
 @MainActor
-final class SettingsWindowController {
+final class SettingsWindowController: NSObject {
     static let shared = SettingsWindowController()
 
     private var window: NSWindow?
 
-    private init() {}
+    private override init() {}
 
     func show() {
         if let window {
@@ -108,11 +108,24 @@ final class SettingsWindowController {
         window.maxSize = NSSize(width: PreferencesWindowMetrics.width, height: PreferencesWindowMetrics.height)
         window.center()
         window.isReleasedWhenClosed = false
+        window.delegate = self
         window.contentView = NSHostingView(rootView: view)
         self.window = window
 
         NSApp.setActivationPolicy(.regular)
         NSApp.activate(ignoringOtherApps: true)
         window.makeKeyAndOrderFront(nil)
+    }
+
+    func hideForBreak() {
+        window?.makeFirstResponder(nil)
+        window?.orderOut(nil)
+        NSApp.setActivationPolicy(.accessory)
+    }
+}
+
+extension SettingsWindowController: NSWindowDelegate {
+    func windowWillClose(_ notification: Notification) {
+        NSApp.setActivationPolicy(.accessory)
     }
 }
