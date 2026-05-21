@@ -16,6 +16,13 @@ A tiny native macOS menu bar app that reminds you to rest after a focused work i
 
 Open `TakeABreak.xcodeproj` in Xcode and run the `TakeABreak` scheme.
 
+Or use Make:
+
+```sh
+make build
+make install
+```
+
 Command line build also works once the active developer directory points to full Xcode:
 
 ```sh
