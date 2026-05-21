@@ -83,12 +83,7 @@ private struct GeneralPreferencesView: View {
             Toggle("Play sound when break ends", isOn: $preferences.playSoundWhenBreakEnds)
             Toggle("Fade in mask window", isOn: $preferences.fadeInMaskWindow)
             Toggle("Pause when mouse inactive for 5 mins", isOn: $preferences.pauseWhenMouseInactive)
-
-            HStack(spacing: 8) {
-                ProBadge()
-                Toggle("Enable standup break", isOn: $preferences.enableStandupBreak)
-                    .disabled(true)
-            }
+            Toggle("Enable standup break", isOn: $preferences.enableStandupBreak)
         }
         .toggleStyle(.checkbox)
         .font(.system(size: 17))
@@ -154,11 +149,6 @@ private struct BreakPreferencesView: View {
                         appearanceContent
                     }
 
-                    VStack {
-                        Spacer()
-                        proButton
-                            .padding(.bottom, 30)
-                    }
                 }
             }
         }
@@ -205,7 +195,12 @@ private struct BreakPreferencesView: View {
                     StepperTextField(value: $preferences.standupBreakDurationMinutes, range: 1...60)
                     Text("mins")
                 }
-                Text("Every \(preferences.standupEveryEyeBreaks) eye breaks")
+
+                HStack {
+                    Text("Every")
+                    StepperTextField(value: $preferences.standupEveryEyeBreaks, range: 1...24)
+                    Text("eye breaks")
+                }
             }
             .font(.system(size: 17))
         }
@@ -235,18 +230,6 @@ private struct BreakPreferencesView: View {
         .font(.system(size: 17))
     }
 
-    private var proButton: some View {
-        Button {
-        } label: {
-            HStack(spacing: 8) {
-                ProBadge()
-                Text("Unlock Pro to Config")
-            }
-            .font(.system(size: 17))
-        }
-        .buttonStyle(.bordered)
-        .disabled(true)
-    }
 }
 
 private struct AboutPreferencesView: View {
@@ -288,48 +271,5 @@ private struct StepperTextField: View {
         } set: { newValue in
             value = min(max(newValue, range.lowerBound), range.upperBound)
         }
-    }
-}
-
-private struct ProBadge: View {
-    var body: some View {
-        Text("Pro")
-            .font(.system(size: 11, weight: .bold))
-            .foregroundStyle(.white)
-            .padding(.horizontal, 4)
-            .frame(width: 31, height: 31)
-            .background(
-                Starburst(points: 14)
-                    .fill(.orange)
-            )
-    }
-}
-
-private struct Starburst: Shape {
-    let points: Int
-
-    func path(in rect: CGRect) -> Path {
-        let center = CGPoint(x: rect.midX, y: rect.midY)
-        let outerRadius = min(rect.width, rect.height) / 2
-        let innerRadius = outerRadius * 0.84
-        var path = Path()
-
-        for index in 0..<(points * 2) {
-            let radius = index.isMultiple(of: 2) ? outerRadius : innerRadius
-            let angle = CGFloat(index) / CGFloat(points * 2) * .pi * 2 - .pi / 2
-            let point = CGPoint(
-                x: center.x + cos(angle) * radius,
-                y: center.y + sin(angle) * radius
-            )
-
-            if index == 0 {
-                path.move(to: point)
-            } else {
-                path.addLine(to: point)
-            }
-        }
-
-        path.closeSubpath()
-        return path
     }
 }

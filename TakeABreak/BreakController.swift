@@ -12,6 +12,7 @@ final class BreakController: ObservableObject {
     private var breakEndsAt: Date?
     private var cancellables = Set<AnyCancellable>()
     private var currentIntervalMinutes: Int
+    private var completedEyeBreaks = 0
 
     init(preferences: Preferences) {
         self.preferences = preferences
@@ -87,12 +88,23 @@ final class BreakController: ObservableObject {
     }
 
     private func beginBreak() {
+        let isStandupBreak = shouldStartStandupBreak
         isBreakActive = true
-        let duration = max(preferences.eyeBreakDurationSeconds, 1)
+        let duration = isStandupBreak
+            ? max(preferences.standupBreakDurationMinutes, 1) * 60
+            : max(preferences.eyeBreakDurationSeconds, 1)
         breakEndsAt = Date().addingTimeInterval(TimeInterval(duration))
         overlay.show(duration: duration, preferences: preferences) { [weak self] in
             self?.endBreak(playSound: false)
         }
+    }
+
+    private var shouldStartStandupBreak: Bool {
+        guard preferences.enableStandupBreak else { return false }
+
+        completedEyeBreaks += 1
+        let frequency = max(preferences.standupEveryEyeBreaks, 1)
+        return completedEyeBreaks.isMultiple(of: frequency)
     }
 
     private func endBreak(playSound: Bool) {
