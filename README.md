@@ -21,6 +21,7 @@ Or use Make:
 ```sh
 make build
 make install
+make dmg
 ```
 
 Command line build also works once the active developer directory points to full Xcode:
