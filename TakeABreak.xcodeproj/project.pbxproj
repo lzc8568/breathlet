@@ -15,7 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1A0000102C00000100000001 /* TakeABreak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TakeABreak.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A0000102C00000100000001 /* Breathlet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breathlet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A0000112C00000100000001 /* TakeABreakApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeABreakApp.swift; sourceTree = "<group>"; };
 		1A0000122C00000100000001 /* BreakController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakController.swift; sourceTree = "<group>"; };
 		1A0000132C00000100000001 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -57,7 +57,7 @@
 		1A0000322C00000100000001 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1A0000102C00000100000001 /* TakeABreak.app */,
+				1A0000102C00000100000001 /* Breathlet.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -79,7 +79,7 @@
 			);
 			name = TakeABreak;
 			productName = TakeABreak;
-			productReference = 1A0000102C00000100000001 /* TakeABreak.app */;
+			productReference = 1A0000102C00000100000001 /* Breathlet.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -264,7 +264,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Take a Break";
+				INFOPLIST_KEY_CFBundleDisplayName = Breathlet;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -273,8 +273,8 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "dev.local.TakeABreak";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.local.Breathlet;
+				PRODUCT_NAME = Breathlet;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -289,7 +289,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Take a Break";
+				INFOPLIST_KEY_CFBundleDisplayName = Breathlet;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -298,8 +298,8 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "dev.local.TakeABreak";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.local.Breathlet;
+				PRODUCT_NAME = Breathlet;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};

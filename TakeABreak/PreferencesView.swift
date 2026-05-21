@@ -245,7 +245,7 @@ private struct AboutPreferencesView: View {
             Image(systemName: "cup.and.saucer.fill")
                 .font(.system(size: 54))
                 .foregroundStyle(.blue)
-            Text("Take a Break")
+            Text("Breathlet")
                 .font(.title.bold())
             Text("A tiny menu bar reminder to rest your eyes during focused work.")
                 .foregroundStyle(.secondary)

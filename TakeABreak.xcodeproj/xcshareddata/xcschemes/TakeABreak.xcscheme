@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1A0000402C00000100000001"
-               BuildableName = "TakeABreak.app"
+               BuildableName = "Breathlet.app"
                BlueprintName = "TakeABreak"
                ReferencedContainer = "container:TakeABreak.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1A0000402C00000100000001"
-            BuildableName = "TakeABreak.app"
+            BuildableName = "Breathlet.app"
             BlueprintName = "TakeABreak"
             ReferencedContainer = "container:TakeABreak.xcodeproj">
          </BuildableReference>
@@ -60,7 +60,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1A0000402C00000100000001"
-            BuildableName = "TakeABreak.app"
+            BuildableName = "Breathlet.app"
             BlueprintName = "TakeABreak"
             ReferencedContainer = "container:TakeABreak.xcodeproj">
          </BuildableReference>

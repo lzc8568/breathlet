@@ -1,7 +1,8 @@
 PROJECT := TakeABreak.xcodeproj
 SCHEME := TakeABreak
 CONFIGURATION := Release
-APP_NAME := TakeABreak.app
+APP_NAME := Breathlet.app
+PROCESS_NAME := Breathlet
 DERIVED_DATA := $(HOME)/Library/Developer/Xcode/DerivedData
 INSTALL_DIR := /Applications
 INSTALLED_APP := $(INSTALL_DIR)/$(APP_NAME)
@@ -17,9 +18,12 @@ install: build
 		echo "Could not find built app in $(DERIVED_DATA)"; \
 		exit 1; \
 	fi; \
-	osascript -e 'tell application "$(SCHEME)" to quit' 2>/dev/null || true; \
+	osascript -e 'tell application "$(PROCESS_NAME)" to quit' 2>/dev/null || true; \
+	osascript -e 'tell application "TakeABreak" to quit' 2>/dev/null || true; \
 	sleep 1; \
-	pkill -x "$(SCHEME)" 2>/dev/null || true; \
+	pkill -x "$(PROCESS_NAME)" 2>/dev/null || true; \
+	pkill -x "TakeABreak" 2>/dev/null || true; \
+	rm -rf "$(INSTALL_DIR)/TakeABreak.app"; \
 	rm -rf "$(INSTALLED_APP)"; \
 	cp -R "$$APP_PATH" "$(INSTALLED_APP)"; \
 	xattr -dr com.apple.quarantine "$(INSTALLED_APP)" 2>/dev/null || true; \

@@ -61,7 +61,7 @@ private struct MenuBarContentView: View {
 
         Divider()
 
-        Button("Quit Take a Break") {
+        Button("Quit Breathlet") {
             NSApp.terminate(nil)
         }
         .keyboardShortcut("q")
@@ -102,7 +102,7 @@ final class SettingsWindowController {
             backing: .buffered,
             defer: false
         )
-        window.title = "Take a Break Preferences"
+        window.title = "Breathlet Preferences"
         window.setContentSize(NSSize(width: PreferencesWindowMetrics.width, height: PreferencesWindowMetrics.height))
         window.minSize = NSSize(width: PreferencesWindowMetrics.width, height: PreferencesWindowMetrics.height)
         window.maxSize = NSSize(width: PreferencesWindowMetrics.width, height: PreferencesWindowMetrics.height)
