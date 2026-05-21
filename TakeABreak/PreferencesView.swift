@@ -179,33 +179,15 @@ private struct BreakPreferencesView: View {
     @ViewBuilder
     private var scheduleContent: some View {
         if selectedBreak == .eye {
-            VStack(alignment: .trailing, spacing: 14) {
-                HStack {
-                    Text("Every")
-                    StepperTextField(value: $preferences.eyeBreakEveryMinutes, range: 1...180)
-                    Text("mins")
-                }
-
-                HStack {
-                    Text("Break for")
-                    StepperTextField(value: $preferences.eyeBreakDurationSeconds, range: 5...600)
-                    Text("seconds")
-                }
+            VStack(spacing: 14) {
+                ScheduleRow(label: "Every", value: $preferences.eyeBreakEveryMinutes, range: 1...180, unit: "mins")
+                ScheduleRow(label: "Break for", value: $preferences.eyeBreakDurationSeconds, range: 5...600, unit: "seconds")
             }
             .font(.system(size: 17))
         } else {
-            VStack(spacing: 16) {
-                HStack {
-                    Text("Break for")
-                    StepperTextField(value: $preferences.standupBreakDurationMinutes, range: 1...60)
-                    Text("mins")
-                }
-
-                HStack {
-                    Text("Every")
-                    StepperTextField(value: $preferences.standupEveryEyeBreaks, range: 1...24)
-                    Text("eye breaks")
-                }
+            VStack(spacing: 14) {
+                ScheduleRow(label: "Break for", value: $preferences.standupBreakDurationMinutes, range: 1...60, unit: "mins")
+                ScheduleRow(label: "Every", value: $preferences.standupEveryEyeBreaks, range: 1...24, unit: "eye breaks")
             }
             .font(.system(size: 17))
         }
@@ -235,6 +217,26 @@ private struct BreakPreferencesView: View {
         .font(.system(size: 17))
     }
 
+}
+
+private struct ScheduleRow: View {
+    let label: String
+    @Binding var value: Int
+    let range: ClosedRange<Int>
+    let unit: String
+
+    var body: some View {
+        HStack(spacing: 14) {
+            Text(label)
+                .frame(width: 86, alignment: .trailing)
+
+            StepperTextField(value: $value, range: range)
+
+            Text(unit)
+                .frame(width: 90, alignment: .leading)
+        }
+        .frame(width: 374, alignment: .leading)
+    }
 }
 
 private struct AboutPreferencesView: View {
