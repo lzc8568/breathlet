@@ -1,6 +1,11 @@
 import ServiceManagement
 import SwiftUI
 
+enum PreferencesWindowMetrics {
+    static let width: CGFloat = 900
+    static let height: CGFloat = 430
+}
+
 struct PreferencesView: View {
     @EnvironmentObject private var preferences: Preferences
     @State private var page = 0
@@ -21,7 +26,7 @@ struct PreferencesView: View {
                 AboutPreferencesView()
             }
         }
-        .frame(width: page == 1 ? 900 : 560, height: page == 1 ? 430 : 360)
+        .frame(width: PreferencesWindowMetrics.width, height: PreferencesWindowMetrics.height)
         .background(Color(nsColor: .windowBackgroundColor))
     }
 

@@ -92,12 +92,20 @@ final class SettingsWindowController {
             .environmentObject(Preferences.shared)
 
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 560, height: 360),
+            contentRect: NSRect(
+                x: 0,
+                y: 0,
+                width: PreferencesWindowMetrics.width,
+                height: PreferencesWindowMetrics.height
+            ),
             styleMask: [.titled, .closable, .miniaturizable],
             backing: .buffered,
             defer: false
         )
         window.title = "Take a Break Preferences"
+        window.setContentSize(NSSize(width: PreferencesWindowMetrics.width, height: PreferencesWindowMetrics.height))
+        window.minSize = NSSize(width: PreferencesWindowMetrics.width, height: PreferencesWindowMetrics.height)
+        window.maxSize = NSSize(width: PreferencesWindowMetrics.width, height: PreferencesWindowMetrics.height)
         window.center()
         window.isReleasedWhenClosed = false
         window.contentView = NSHostingView(rootView: view)
