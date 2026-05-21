@@ -6,8 +6,12 @@ PROCESS_NAME := Breathlet
 DERIVED_DATA := $(HOME)/Library/Developer/Xcode/DerivedData
 INSTALL_DIR := /Applications
 INSTALLED_APP := $(INSTALL_DIR)/$(APP_NAME)
+DIST_DIR := dist
+DMG_NAME := Breathlet.dmg
+DMG_PATH := $(DIST_DIR)/$(DMG_NAME)
+DMG_STAGING := $(DIST_DIR)/dmg-root
 
-.PHONY: build install clean
+.PHONY: build install dmg clean
 
 build:
 	xcodebuild -project "$(PROJECT)" -scheme "$(SCHEME)" -configuration "$(CONFIGURATION)" build
@@ -27,5 +31,20 @@ install: build
 	open "$(INSTALLED_APP)"; \
 	echo "Installed and launched $(INSTALLED_APP)"
 
+dmg: build
+	@APP_PATH="$$(find "$(DERIVED_DATA)" -path "*/Build/Products/$(CONFIGURATION)/$(APP_NAME)" -maxdepth 8 -print 2>/dev/null | tail -1)"; \
+	if [ -z "$$APP_PATH" ]; then \
+		echo "Could not find built app in $(DERIVED_DATA)"; \
+		exit 1; \
+	fi; \
+	rm -rf "$(DMG_STAGING)" "$(DMG_PATH)"; \
+	mkdir -p "$(DMG_STAGING)"; \
+	ditto "$$APP_PATH" "$(DMG_STAGING)/$(APP_NAME)"; \
+	ln -s /Applications "$(DMG_STAGING)/Applications"; \
+	hdiutil create -volname "$(PROCESS_NAME)" -srcfolder "$(DMG_STAGING)" -ov -format UDZO "$(DMG_PATH)"; \
+	rm -rf "$(DMG_STAGING)"; \
+	echo "Created $(DMG_PATH)"
+
 clean:
 	xcodebuild -project "$(PROJECT)" -scheme "$(SCHEME)" -configuration "$(CONFIGURATION)" clean
+	rm -rf "$(DIST_DIR)"
