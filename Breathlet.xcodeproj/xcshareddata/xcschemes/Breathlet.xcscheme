@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1A0000402C00000100000001"
                BuildableName = "Breathlet.app"
-               BlueprintName = "TakeABreak"
-               ReferencedContainer = "container:TakeABreak.xcodeproj">
+               BlueprintName = "Breathlet"
+               ReferencedContainer = "container:Breathlet.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,8 +44,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1A0000402C00000100000001"
             BuildableName = "Breathlet.app"
-            BlueprintName = "TakeABreak"
-            ReferencedContainer = "container:TakeABreak.xcodeproj">
+            BlueprintName = "Breathlet"
+            ReferencedContainer = "container:Breathlet.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -61,8 +61,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1A0000402C00000100000001"
             BuildableName = "Breathlet.app"
-            BlueprintName = "TakeABreak"
-            ReferencedContainer = "container:TakeABreak.xcodeproj">
+            BlueprintName = "Breathlet"
+            ReferencedContainer = "container:Breathlet.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
