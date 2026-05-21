@@ -35,7 +35,7 @@ final class BreakController: ObservableObject {
 
     var menuBarTitle: String {
         guard preferences.showTimeInMenuBar else {
-            return isBreakActive ? "Break" : "Take a Break"
+            return isBreakActive ? "Break" : "Breathlet"
         }
         return isBreakActive ? "Break" : format(seconds: remainingWorkSeconds)
     }

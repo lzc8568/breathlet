@@ -1,4 +1,4 @@
-# Take a Break
+# Breathlet
 
 A tiny native macOS menu bar app that reminds you to rest after a focused work interval.
 
