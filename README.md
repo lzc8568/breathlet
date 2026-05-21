@@ -24,11 +24,18 @@ make install
 make dmg
 ```
 
+## Release
+
+Push a tag to build a DMG and publish a GitHub Release:
+
+```sh
+git tag v1.0.0
+git push origin v1.0.0
+```
+
 Command line build also works once the active developer directory points to full Xcode:
 
 ```sh
 sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 xcodebuild -project Breathlet.xcodeproj -scheme Breathlet -configuration Debug build
 ```
-
-The current machine is using Command Line Tools only, so `xcodebuild` cannot run here until Xcode is selected.
