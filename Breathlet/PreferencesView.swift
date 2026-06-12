@@ -2,8 +2,8 @@ import ServiceManagement
 import SwiftUI
 
 enum PreferencesWindowMetrics {
-    static let width: CGFloat = 900
-    static let height: CGFloat = 430
+    static let width: CGFloat = 720
+    static let height: CGFloat = 480
 }
 
 struct PreferencesView: View {
@@ -34,15 +34,13 @@ struct PreferencesView: View {
     }
 
     private var toolbar: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 2) {
-                toolbarButton(index: 0, title: "General", symbol: "switch.2")
-                toolbarButton(index: 1, title: "Break", symbol: "gearshape")
-                toolbarButton(index: 2, title: "About", symbol: "info.circle.fill")
-            }
+        HStack(spacing: 2) {
+            toolbarButton(index: 0, title: "General", symbol: "switch.2")
+            toolbarButton(index: 1, title: "Break", symbol: "gearshape")
+            toolbarButton(index: 2, title: "About", symbol: "info.circle.fill")
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 88)
+        .frame(height: 82)
         .fixedSize(horizontal: false, vertical: true)
         .layoutPriority(1)
         .background(.regularMaterial)
@@ -54,18 +52,18 @@ struct PreferencesView: View {
         } label: {
             VStack(spacing: 1) {
                 Image(systemName: symbol)
-                    .font(.system(size: 32))
+                    .font(.system(size: 22))
                     .symbolRenderingMode(index == 2 ? .palette : .monochrome)
                     .foregroundStyle(index == 2 ? .white : .secondary, index == 2 ? .blue : .secondary)
-                    .frame(width: 44, height: 38)
+                    .frame(width: 32, height: 28)
 
                 Text(title)
-                    .font(.system(size: 14))
+                    .font(.system(size: 12))
                     .foregroundStyle(page == index ? .blue : .secondary)
             }
-            .frame(width: 78, height: 64)
+            .frame(width: 64, height: 48)
             .background(page == index ? Color(nsColor: .controlBackgroundColor) : Color.clear)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .clipShape(RoundedRectangle(cornerRadius: 6))
         }
         .buttonStyle(.plain)
         .focusable(false)
@@ -76,7 +74,7 @@ private struct GeneralPreferencesView: View {
     @EnvironmentObject private var preferences: Preferences
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading, spacing: 12) {
             Toggle("Launch at system startup", isOn: launchBinding)
             Toggle("Show time in Menu Bar", isOn: $preferences.showTimeInMenuBar)
             Toggle("Play sound when break ends", isOn: $preferences.playSoundWhenBreakEnds)
@@ -84,7 +82,7 @@ private struct GeneralPreferencesView: View {
 
             Divider()
 
-            HStack(spacing: 16) {
+            HStack(spacing: 12) {
                 Toggle("Enable gradual wake-up fade", isOn: $preferences.enableGradualWakeUp)
 
                 if preferences.enableGradualWakeUp {
@@ -94,11 +92,11 @@ private struct GeneralPreferencesView: View {
                         get: { Double(preferences.gradualWakeUpSeconds) },
                         set: { preferences.gradualWakeUpSeconds = Int($0) }
                     ), in: 1...10, step: 1)
-                    .frame(width: 150)
+                    .frame(width: 120)
 
                     Text("\(preferences.gradualWakeUpSeconds) seconds")
                         .monospacedDigit()
-                        .frame(width: 82, alignment: .leading)
+                        .frame(width: 70, alignment: .leading)
                 }
             }
 
@@ -108,9 +106,9 @@ private struct GeneralPreferencesView: View {
             Toggle("Enable standup break", isOn: $preferences.enableStandupBreak)
         }
         .toggleStyle(.checkbox)
-        .font(.system(size: 17))
-        .padding(.top, 34)
-        .padding(.leading, 116)
+        .font(.system(size: 14))
+        .padding(.top, 20)
+        .padding(.leading, 80)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 
@@ -143,17 +141,17 @@ private struct BreakPreferencesView: View {
     @State private var selectedTab: BreakSettingsTab = .schedule
 
     var body: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 12) {
             breakList
 
-            VStack(spacing: 8) {
+            VStack(spacing: 6) {
                 Picker("", selection: $selectedTab) {
                     ForEach(BreakSettingsTab.allCases) { tab in
                         Text(tab.title).tag(tab)
                     }
                 }
                 .pickerStyle(.segmented)
-                .frame(width: 250)
+                .frame(width: 220)
                 .zIndex(1)
 
                 ZStack {
@@ -173,7 +171,7 @@ private struct BreakPreferencesView: View {
                 }
             }
         }
-        .padding(28)
+        .padding(16)
     }
 
     private var breakList: some View {
@@ -182,12 +180,12 @@ private struct BreakPreferencesView: View {
                 ForEach(BreakKind.allCases) { kind in
                     Text(kind.title)
                         .tag(kind)
-                        .font(.system(size: 17))
+                        .font(.system(size: 14))
                 }
             }
         }
         .listStyle(.inset)
-        .frame(width: 210)
+        .frame(width: 140)
         .clipShape(Rectangle())
         .overlay(Rectangle().stroke(Color(nsColor: .separatorColor)))
     }
@@ -195,42 +193,42 @@ private struct BreakPreferencesView: View {
     @ViewBuilder
     private var scheduleContent: some View {
         if selectedBreak == .eye {
-            VStack(spacing: 14) {
+            VStack(spacing: 10) {
                 ScheduleRow(label: "Every", value: $preferences.eyeBreakEveryMinutes, range: 1...180, unit: "mins")
                 ScheduleRow(label: "Break for", value: $preferences.eyeBreakDurationSeconds, range: 5...600, unit: "seconds")
             }
-            .font(.system(size: 17))
+            .font(.system(size: 14))
         } else {
-            VStack(spacing: 14) {
+            VStack(spacing: 10) {
                 ScheduleRow(label: "Break for", value: $preferences.standupBreakDurationMinutes, range: 1...60, unit: "mins")
                 ScheduleRow(label: "Every", value: $preferences.standupEveryEyeBreaks, range: 1...24, unit: "eye breaks")
             }
-            .font(.system(size: 17))
+            .font(.system(size: 14))
         }
     }
 
     private var appearanceContent: some View {
-        VStack(alignment: .leading, spacing: 18) {
+        VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Text("Mask opacity")
                 Slider(value: Binding(
                     get: { Double(preferences.maskOpacityPercent) },
                     set: { preferences.maskOpacityPercent = Int($0) }
                 ), in: 30...95, step: 1)
-                .frame(width: 220)
+                .frame(width: 160)
                 Text("\(preferences.maskOpacityPercent)%")
                     .monospacedDigit()
-                    .frame(width: 44, alignment: .trailing)
+                    .frame(width: 36, alignment: .trailing)
             }
 
             HStack {
                 Text("Message")
                 TextField("Break message", text: $preferences.breakMessage)
                     .textFieldStyle(.roundedBorder)
-                    .frame(width: 290)
+                    .frame(width: 240)
             }
         }
-        .font(.system(size: 17))
+        .font(.system(size: 14))
     }
 
 }
@@ -242,35 +240,36 @@ private struct ScheduleRow: View {
     let unit: String
 
     var body: some View {
-        HStack(spacing: 14) {
+        HStack(spacing: 10) {
             Text(label)
-                .frame(width: 86, alignment: .trailing)
+                .frame(width: 72, alignment: .trailing)
 
             StepperTextField(value: $value, range: range)
 
             Text(unit)
-                .frame(width: 90, alignment: .leading)
+                .frame(width: 74, alignment: .leading)
         }
-        .frame(width: 374, alignment: .leading)
+        .frame(width: 320, alignment: .leading)
     }
 }
 
 private struct AboutPreferencesView: View {
     var body: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: 10) {
             Image(systemName: "cup.and.saucer.fill")
-                .font(.system(size: 54))
+                .font(.system(size: 36))
                 .foregroundStyle(.blue)
             Text("Breathlet")
-                .font(.title.bold())
+                .font(.title3.bold())
             Text("A tiny menu bar reminder to rest your eyes during focused work.")
                 .foregroundStyle(.secondary)
+                .font(.system(size: 13))
             Text("Version 1.0")
-                .font(.caption)
+                .font(.caption2)
                 .foregroundStyle(.tertiary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(40)
+        .padding(24)
     }
 }
 
@@ -282,9 +281,9 @@ private struct StepperTextField: View {
     var body: some View {
         TextField("", text: $text)
             .textFieldStyle(.plain)
-            .font(.system(size: 17))
-            .padding(.horizontal, 8)
-            .frame(width: 170, height: 28)
+            .font(.system(size: 14))
+            .padding(.horizontal, 6)
+            .frame(width: 140, height: 24)
             .background(Color(nsColor: .textBackgroundColor))
             .overlay(Rectangle().stroke(Color(nsColor: .separatorColor)))
             .onAppear {
