@@ -108,10 +108,10 @@ struct BreakOverlayView: View {
             Color.black.opacity(opacity * fadeAlpha)
                 .ignoresSafeArea()
 
-            VStack(spacing: 24) {
+            VStack(spacing: 14) {
                 ZStack {
                     Image(systemName: currentActionSymbol)
-                        .font(.system(size: 88, weight: .light))
+                        .font(.system(size: 56, weight: .light))
                         .foregroundStyle(.white.opacity(isIconAnimating ? 0.72 : 0.94))
                         .symbolRenderingMode(.hierarchical)
                         .scaleEffect(isIconAnimating ? 1.08 : 0.96)
@@ -122,7 +122,7 @@ struct BreakOverlayView: View {
                             removal: .scale(scale: 1.12).combined(with: .opacity)
                         ))
                 }
-                .frame(width: 150, height: 110)
+                .frame(width: 100, height: 72)
                 .animation(
                     .easeInOut(duration: 1.8).repeatForever(autoreverses: true),
                     value: isIconAnimating
@@ -131,25 +131,25 @@ struct BreakOverlayView: View {
 
                 if !trimmedMessage.isEmpty {
                     Text(trimmedMessage)
-                        .font(.system(size: 42, weight: .semibold))
+                        .font(.system(size: 28, weight: .semibold))
                         .foregroundStyle(.white)
                 }
 
                 Text(timeString)
-                    .font(.system(size: 72, weight: .bold, design: .rounded))
+                    .font(.system(size: 48, weight: .bold, design: .rounded))
                     .monospacedDigit()
                     .foregroundStyle(.white)
-                    .padding(.top, 4)
+                    .padding(.top, 2)
 
                 Button("Skip Break") {
                     onSkip()
                 }
                 .keyboardShortcut(.escape, modifiers: [])
                 .buttonStyle(.borderedProminent)
-                .controlSize(.large)
+                .controlSize(.small)
                 .tint(.white.opacity(0.2))
             }
-            .padding(48)
+            .padding(32)
         }
         .onAppear {
             startTimer()
