@@ -146,7 +146,7 @@ struct BreakOverlayView: View {
                 }
                 .keyboardShortcut(.escape, modifiers: [])
                 .buttonStyle(.borderedProminent)
-                .controlSize(.small)
+                .controlSize(.large)
                 .tint(.white.opacity(0.2))
             }
             .padding(32)
