@@ -5,6 +5,7 @@ import Combine
 final class BreakController: ObservableObject {
     @Published private(set) var remainingWorkSeconds: Int
     @Published private(set) var isBreakActive = false
+    @Published private(set) var isPaused = false
 
     private let preferences: Preferences
     private let overlay = BreakOverlayManager()
@@ -35,9 +36,9 @@ final class BreakController: ObservableObject {
 
     var menuBarTitle: String {
         guard preferences.showTimeInMenuBar else {
-            return isBreakActive ? "Break" : "Breathlet"
+            return isBreakActive ? "Break" : (isPaused ? "Paused" : "Breathlet")
         }
-        return isBreakActive ? "Break" : format(seconds: remainingWorkSeconds)
+        return isBreakActive ? "Break" : (isPaused ? "Paused" : format(seconds: remainingWorkSeconds))
     }
 
     func start() {
@@ -57,6 +58,20 @@ final class BreakController: ObservableObject {
         endBreak(playSound: false)
     }
 
+    func pause() {
+        guard !isBreakActive else { return }
+        isPaused = true
+    }
+
+    func resume() {
+        isPaused = false
+    }
+
+    func togglePause() {
+        guard !isBreakActive else { return }
+        isPaused.toggle()
+    }
+
     func resetWorkTimer() {
         remainingWorkSeconds = max(preferences.eyeBreakEveryMinutes, 1) * 60
         if isBreakActive {
@@ -69,6 +84,10 @@ final class BreakController: ObservableObject {
             if let breakEndsAt, Date() >= breakEndsAt {
                 endBreak(playSound: preferences.playSoundWhenBreakEnds)
             }
+            return
+        }
+
+        if isPaused {
             return
         }
 

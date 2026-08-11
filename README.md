@@ -5,6 +5,7 @@ A tiny native macOS menu bar app that reminds you to rest after a focused work i
 ## Features
 
 - Menu bar countdown.
+- Manual pause/resume from the menu bar.
 - Manual "Take Break Now" and timer reset actions.
 - Full-screen break mask across all displays.
 - Configurable eye break interval and duration.

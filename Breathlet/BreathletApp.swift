@@ -38,7 +38,7 @@ private struct MenuBarContentView: View {
     @EnvironmentObject private var controller: BreakController
 
     var body: some View {
-        Text(controller.isBreakActive ? "Break is running" : "Next break in \(controller.menuBarTitle)")
+        Text(statusText)
 
         Divider()
 
@@ -46,6 +46,12 @@ private struct MenuBarContentView: View {
             controller.triggerBreakNow()
         }
         .keyboardShortcut("b")
+
+        Button(controller.isPaused ? "Resume" : "Pause") {
+            controller.togglePause()
+        }
+        .keyboardShortcut("p")
+        .disabled(controller.isBreakActive)
 
         Button("Reset Timer") {
             controller.resetWorkTimer()
@@ -65,6 +71,16 @@ private struct MenuBarContentView: View {
             NSApp.terminate(nil)
         }
         .keyboardShortcut("q")
+    }
+
+    private var statusText: String {
+        if controller.isBreakActive {
+            return "Break is running"
+        }
+        if controller.isPaused {
+            return "Paused"
+        }
+        return "Next break in \(controller.menuBarTitle)"
     }
 
     private func openSettings() {
