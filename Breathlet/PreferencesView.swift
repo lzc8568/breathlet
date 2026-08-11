@@ -264,7 +264,7 @@ private struct AboutPreferencesView: View {
             Text("A tiny menu bar reminder to rest your eyes during focused work.")
                 .foregroundStyle(.secondary)
                 .font(.system(size: 13))
-            Text("Version 1.3.0")
+            Text("Version 1.2.0")
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
         }
