@@ -33,11 +33,11 @@ fi
 # CI 场景 release_site 是空目录：先从下载页预取已有 DMG，保证「保留最近 3 个版本」
 if [ -n "${RELEASE_BASE_URL:-}" ]; then
   echo "→ 从 $RELEASE_BASE_URL 预取已有 DMG..."
-  curl -sL "$RELEASE_BASE_URL/" \
-    | grep -oE 'Breathlet-[0-9]+\.[0-9]+\.[0-9]+\.dmg' | sort -u \
-    | while read -r f; do
-        [ -f "$SITE_DIR/$f" ] || curl -sL -o "$SITE_DIR/$f" "$RELEASE_BASE_URL/$f" || true
-      done
+  existing=$(curl -sL "$RELEASE_BASE_URL/" \
+    | grep -oE 'Breathlet-[0-9]+\.[0-9]+\.[0-9]+\.dmg' | sort -u || true)
+  for f in $existing; do
+    [ -f "$SITE_DIR/$f" ] || curl -sL -o "$SITE_DIR/$f" "$RELEASE_BASE_URL/$f" || true
+  done
   ls -1 "$SITE_DIR"/*.dmg 2>/dev/null | xargs -r -n1 basename
 fi
 
