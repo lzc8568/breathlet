@@ -20,7 +20,7 @@
 "Enable gradual wake-up fade" = "Enable gradual wake-up fade";
 "Fade duration" = "Fade duration";
 "%d seconds" = "%d seconds";
-"Pause when mouse inactive for 5 mins" = "Pause when mouse inactive for 5 mins";
+"Pause when mouse inactive" = "Pause when mouse inactive";
 "Enable standup break" = "Enable standup break";
 "Breaks" = "Breaks";
 "Language" = "Language";
@@ -57,9 +57,11 @@
 "Unable to check for updates. Please try again." = "Unable to check for updates. Please try again.";
 "Retry" = "Retry";
 "Retry Download" = "Retry Download";
+"Download verification failed" = "Download verification failed";
 
 /* Break overlay */
 "Skip Break" = "Skip Break";
+"Break starts in %d" = "Break starts in %d seconds";
 
 /* Default break message */
 "Time to take a break" = "Time to take a break";

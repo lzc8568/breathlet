@@ -18,6 +18,10 @@
 		1A0000092C00000100000001 /* UpdateChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000192C00000100000001 /* UpdateChecker.swift */; };
 		1A00000A2C00000100000001 /* UpdateDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A00001A2C00000100000001 /* UpdateDownloader.swift */; };
 		1A00000B2C00000100000001 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A00001D2C00000100000001 /* Localizable.strings */; };
+		1A0000C12C00000100000001 /* VersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000D12C00000100000001 /* VersionTests.swift */; };
+		1A0000C22C00000100000001 /* TimeFormatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000D22C00000100000001 /* TimeFormatTests.swift */; };
+		1A0000C32C00000100000001 /* BreakSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000D32C00000100000001 /* BreakSchedulerTests.swift */; };
+		1A0000C42C00000100000001 /* AppLanguageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000D42C00000100000001 /* AppLanguageTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,10 +38,22 @@
 		1A00001A2C00000100000001 /* UpdateDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDownloader.swift; sourceTree = "<group>"; };
 		1A00001B2C00000100000001 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1A00001C2C00000100000001 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh-Hans; path = zh-Hans.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1A0000D02C00000100000001 /* BreathletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BreathletTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A0000D12C00000100000001 /* VersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionTests.swift; sourceTree = "<group>"; };
+		1A0000D22C00000100000001 /* TimeFormatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatTests.swift; sourceTree = "<group>"; };
+		1A0000D32C00000100000001 /* BreakSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakSchedulerTests.swift; sourceTree = "<group>"; };
+		1A0000D42C00000100000001 /* AppLanguageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguageTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		1A0000202C00000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A0000F32C00000100000001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -51,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				1A0000312C00000100000001 /* Breathlet */,
+				1A0000E02C00000100000001 /* BreathletTests */,
 				1A0000322C00000100000001 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -73,10 +90,22 @@
 			path = Breathlet;
 			sourceTree = "<group>";
 		};
+		1A0000E02C00000100000001 /* BreathletTests */ = {
+			isa = PBXGroup;
+			children = (
+				1A0000D12C00000100000001 /* VersionTests.swift */,
+				1A0000D22C00000100000001 /* TimeFormatTests.swift */,
+				1A0000D32C00000100000001 /* BreakSchedulerTests.swift */,
+				1A0000D42C00000100000001 /* AppLanguageTests.swift */,
+			);
+			path = BreathletTests;
+			sourceTree = "<group>";
+		};
 		1A0000322C00000100000001 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				1A0000102C00000100000001 /* Breathlet.app */,
+				1A0000D02C00000100000001 /* BreathletTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -113,7 +142,43 @@
 			productReference = 1A0000102C00000100000001 /* Breathlet.app */;
 			productType = "com.apple.product-type.application";
 		};
+		1A0000F02C00000100000001 /* BreathletTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A0000F12C00000100000001 /* Build configuration list for PBXNativeTarget "BreathletTests" */;
+			buildPhases = (
+				1A0000F22C00000100000001 /* Sources */,
+				1A0000F32C00000100000001 /* Frameworks */,
+				1A0000F42C00000100000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A0000F52C00000100000001 /* PBXTargetDependency */,
+			);
+			name = BreathletTests;
+			productName = BreathletTests;
+			productReference = 1A0000D02C00000100000001 /* BreathletTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		1A0000F62C00000100000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A0000702C00000100000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A0000402C00000100000001;
+			remoteInfo = Breathlet;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXTargetDependency section */
+		1A0000F52C00000100000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A0000402C00000100000001 /* Breathlet */;
+			targetProxy = 1A0000F62C00000100000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXProject section */
 		1A0000702C00000100000001 /* Project object */ = {
@@ -125,6 +190,10 @@
 				TargetAttributes = {
 					1A0000402C00000100000001 = {
 						CreatedOnToolsVersion = 15.2;
+					};
+					1A0000F02C00000100000001 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 1A0000402C00000100000001;
 					};
 				};
 			};
@@ -143,6 +212,7 @@
 			projectRoot = "";
 			targets = (
 				1A0000402C00000100000001 /* Breathlet */,
+				1A0000F02C00000100000001 /* BreathletTests */,
 			);
 		};
 /* End PBXProject section */
@@ -154,6 +224,13 @@
 			files = (
 				1A0000062C00000100000001 /* Assets.xcassets in Resources */,
 				1A00000B2C00000100000001 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A0000F42C00000100000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +250,17 @@
 				1A0000082C00000100000001 /* HealthTipProvider.swift in Sources */,
 				1A0000092C00000100000001 /* UpdateChecker.swift in Sources */,
 				1A00000A2C00000100000001 /* UpdateDownloader.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A0000F22C00000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A0000C12C00000100000001 /* VersionTests.swift in Sources */,
+				1A0000C22C00000100000001 /* TimeFormatTests.swift in Sources */,
+				1A0000C32C00000100000001 /* BreakSchedulerTests.swift in Sources */,
+				1A0000C42C00000100000001 /* AppLanguageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +433,54 @@
 			};
 			name = Release;
 		};
+		1A0001012C00000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.local.BreathletTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Breathlet.app/Contents/MacOS/Breathlet";
+			};
+			name = Debug;
+		};
+		1A0001022C00000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.local.BreathletTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Breathlet.app/Contents/MacOS/Breathlet";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -362,6 +498,15 @@
 			buildConfigurations = (
 				1A0000912C00000100000001 /* Debug */,
 				1A0000922C00000100000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1A0000F12C00000100000001 /* Build configuration list for PBXNativeTarget "BreathletTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A0001012C00000100000001 /* Debug */,
+				1A0001022C00000100000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

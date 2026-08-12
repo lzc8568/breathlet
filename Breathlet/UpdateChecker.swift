@@ -5,10 +5,11 @@ struct UpdateInfo: Codable {
     let version: String
     let url: String
     let size: Int64?
+    let sha256: String?
     let updatedAt: String?
 
     enum CodingKeys: String, CodingKey {
-        case version, url, size
+        case version, url, size, sha256
         case updatedAt = "updated_at"
     }
 }

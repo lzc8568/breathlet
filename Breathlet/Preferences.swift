@@ -102,6 +102,7 @@ final class Preferences: ObservableObject {
     @AppStorage("playSoundWhenBreakEnds") var playSoundWhenBreakEnds = true
     @AppStorage("fadeInMaskWindow") var fadeInMaskWindow = true
     @AppStorage("pauseWhenMouseInactive") var pauseWhenMouseInactive = false
+    @AppStorage("mouseInactiveMinutes") var mouseInactiveMinutes = 5
     @AppStorage("enableStandupBreak") var enableStandupBreak = false
 
     @AppStorage("eyeBreakEveryMinutes") var eyeBreakEveryMinutes = 20

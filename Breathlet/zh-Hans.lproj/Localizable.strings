@@ -20,7 +20,7 @@
 "Enable gradual wake-up fade" = "启用渐进唤醒淡出";
 "Fade duration" = "淡出时长";
 "%d seconds" = "%d 秒";
-"Pause when mouse inactive for 5 mins" = "鼠标静止 5 分钟时暂停";
+"Pause when mouse inactive" = "鼠标无操作时暂停计时";
 "Enable standup break" = "启用站立休息";
 "Breaks" = "休息类型";
 "Language" = "语言";
@@ -57,9 +57,11 @@
 "Unable to check for updates. Please try again." = "无法检查更新，请稍后重试。";
 "Retry" = "重试";
 "Retry Download" = "重新下载";
+"Download verification failed" = "下载校验失败";
 
 /* Break overlay */
 "Skip Break" = "跳过休息";
+"Break starts in %d" = "休息将在 %d 秒后开始";
 
 /* Default break message */
 "Time to take a break" = "该休息一下了";

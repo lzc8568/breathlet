@@ -108,7 +108,16 @@ private struct GeneralPreferencesView: View {
 
             Divider()
 
-            Toggle("Pause when mouse inactive for 5 mins", isOn: $preferences.pauseWhenMouseInactive)
+            HStack(spacing: 12) {
+                Toggle("Pause when mouse inactive", isOn: $preferences.pauseWhenMouseInactive)
+
+                if preferences.pauseWhenMouseInactive {
+                    StepperTextField(value: $preferences.mouseInactiveMinutes, range: 1...60)
+
+                    Text("mins")
+                        .monospacedDigit()
+                }
+            }
             Toggle("Enable standup break", isOn: $preferences.enableStandupBreak)
 
             Divider()
@@ -354,11 +363,6 @@ private struct AboutPreferencesView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(24)
-        .onChange(of: downloader.state) { newState in
-            if case .downloaded(let url) = newState {
-                NSWorkspace.shared.open(url)
-            }
-        }
     }
 
     @ViewBuilder
@@ -402,7 +406,7 @@ private struct AboutPreferencesView: View {
                 case .idle:
                     Button {
                         guard let url = URL(string: info.url) else { return }
-                        downloader.start(from: url, version: info.version)
+                        downloader.start(from: url, version: info.version, sha256: info.sha256)
                     } label: {
                         Text(String(
                             format: NSLocalizedString("Download v%@", comment: ""),
@@ -441,7 +445,7 @@ private struct AboutPreferencesView: View {
                             .foregroundStyle(.secondary)
                         Button("Retry Download") {
                             guard let url = URL(string: info.url) else { return }
-                            downloader.start(from: url, version: info.version)
+                            downloader.start(from: url, version: info.version, sha256: info.sha256)
                         }
                         .font(.system(size: 12))
                     }

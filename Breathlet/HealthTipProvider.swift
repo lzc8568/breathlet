@@ -9,6 +9,7 @@ final class HealthTipProvider {
 
     private init() {
         loadTips()
+        tips.shuffle()
     }
 
     func getNextTip() -> HealthTip {
@@ -24,8 +25,13 @@ final class HealthTipProvider {
             )
         }
 
+        if currentIndex >= tips.count {
+            currentIndex = 0
+            tips.shuffle()
+        }
+
         let tip = tips[currentIndex]
-        currentIndex = (currentIndex + 1) % tips.count
+        currentIndex += 1
         return tip
     }
 

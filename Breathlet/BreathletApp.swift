@@ -20,11 +20,6 @@ struct BreathletApp: App {
                 Text(controller.menuBarTitle)
             }
         }
-
-        Settings {
-            PreferencesView()
-                .environmentObject(Preferences.shared)
-        }
     }
 }
 

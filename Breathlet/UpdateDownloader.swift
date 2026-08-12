@@ -1,3 +1,4 @@
+import CryptoKit
 import Foundation
 
 /// 在 App 内下载新版本 DMG（进度、完成、失败状态），下载完成后自动挂载。
@@ -16,6 +17,7 @@ final class UpdateDownloader: NSObject, ObservableObject {
     private var session: URLSession?
     private var task: URLSessionDownloadTask?
     private var destinationURL: URL?
+    private var expectedSHA256: String?
 
     private override init() {
         super.init()
@@ -26,11 +28,13 @@ final class UpdateDownloader: NSObject, ObservableObject {
         task = nil
         session = nil
         destinationURL = nil
+        expectedSHA256 = nil
         setState(.idle)
     }
 
-    func start(from url: URL, version: String) {
+    func start(from url: URL, version: String, sha256: String?) {
         reset()
+        expectedSHA256 = sha256
 
         let configuration = URLSessionConfiguration.ephemeral
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
@@ -83,6 +87,15 @@ extension UpdateDownloader: URLSessionDownloadDelegate {
             }
             try? FileManager.default.removeItem(at: destination)
             try FileManager.default.moveItem(at: location, to: destination)
+
+            if let expected = expectedSHA256 {
+                let digest = try sha256Digest(of: destination)
+                guard digest.lowercased() == expected.lowercased() else {
+                    try? FileManager.default.removeItem(at: destination)
+                    setState(.failed(NSLocalizedString("Download verification failed", comment: "")))
+                    return
+                }
+            }
             setState(.downloaded(destination))
         } catch {
             setState(.failed(error.localizedDescription))
@@ -93,5 +106,18 @@ extension UpdateDownloader: URLSessionDownloadDelegate {
         guard let error else { return }
         guard task.taskIdentifier == self.task?.taskIdentifier else { return }
         setState(.failed(error.localizedDescription))
+    }
+}
+
+private extension UpdateDownloader {
+    /// 流式计算文件的 SHA-256，避免把整个 DMG 读进内存。
+    func sha256Digest(of url: URL) throws -> String {
+        var hasher = SHA256()
+        let handle = try FileHandle(forReadingFrom: url)
+        defer { try? handle.close() }
+        while let chunk = try handle.read(upToCount: 1 << 20), !chunk.isEmpty {
+            hasher.update(data: chunk)
+        }
+        return hasher.finalize().map { String(format: "%02x", $0) }.joined()
     }
 }
