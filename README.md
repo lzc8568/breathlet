@@ -43,6 +43,8 @@ make dmg
 xcodebuild -project Breathlet.xcodeproj -scheme Breathlet test
 ```
 
+PR 和 master 推送都会在 GitHub Actions 上自动跑构建与测试（见 `.github/workflows/ci.yml`）。
+
 ## Release
 
 Push a tag to build a DMG, publish a GitHub Release, and update the here.now download page:

@@ -29,7 +29,9 @@ install: build
 	osascript -e 'tell application "$(PROCESS_NAME)" to quit' 2>/dev/null || true; \
 	sleep 1; \
 	pkill -x "$(PROCESS_NAME)" 2>/dev/null || true; \
-	rm -rf "$(INSTALLED_APP)"; \
+	if [ -d "$(INSTALLED_APP)" ]; then \
+		osascript -e 'tell application "Finder" to delete POSIX file "$(INSTALLED_APP)"' >/dev/null 2>&1 || rm -rf "$(INSTALLED_APP)"; \
+	fi; \
 	cp -R "$$APP_PATH" "$(INSTALLED_APP)"; \
 	xattr -dr com.apple.quarantine "$(INSTALLED_APP)" 2>/dev/null || true; \
 	open "$(INSTALLED_APP)"; \
