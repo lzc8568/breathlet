@@ -61,6 +61,7 @@ fi
 BASE_URL="${RELEASE_BASE_URL:-}"
 python3 - "$BASE_URL" <<'PY'
 import glob
+import hashlib
 import json
 import os
 import re
@@ -152,6 +153,7 @@ if files:
         "version": ver,
         "url": url,
         "size": os.path.getsize(latest),
+        "sha256": hashlib.sha256(open(latest, "rb").read()).hexdigest(),
         "updated_at": time.strftime("%Y-%m-%d", time.localtime(os.path.getmtime(latest))),
     }
     with open("latest.json", "w", encoding="utf-8") as f:

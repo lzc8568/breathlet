@@ -37,6 +37,12 @@ make dmg
 
 `make install` builds the Release app, installs the current build to `/Applications/Breathlet.app`, and launches it.
 
+### Tests
+
+```sh
+xcodebuild -project Breathlet.xcodeproj -scheme Breathlet test
+```
+
 ## Release
 
 Push a tag to build a DMG, publish a GitHub Release, and update the here.now download page:
@@ -47,6 +53,18 @@ git push origin v1.3.2
 ```
 
 The workflow also regenerates `latest.json` on the here.now site, which the app's "Check for Updates" reads. Publishing requires the `HERENOW_API_KEY` secret; without it the step is skipped (the GitHub Release is still published).
+
+`latest.json` now includes a `sha256` of the DMG; the app verifies it after downloading before offering to open the file.
+
+### Version bump
+
+Instead of editing the project manually, bump `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` with:
+
+```sh
+make version VERSION=1.6.0
+```
+
+This updates `project.pbxproj` and creates the "Bump version to 1.6.0" commit. Set `SKIP_COMMIT=1` to update without committing.
 
 Command line build also works once the active developer directory points to full Xcode:
 

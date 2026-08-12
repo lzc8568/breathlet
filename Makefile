@@ -11,7 +11,7 @@ DMG_NAME := Breathlet.dmg
 DMG_PATH := $(DIST_DIR)/$(DMG_NAME)
 DMG_STAGING := $(DIST_DIR)/dmg-root
 
-.PHONY: build install dmg clean
+.PHONY: build install dmg clean version
 
 build:
 	xcodebuild -project "$(PROJECT)" -scheme "$(SCHEME)" -configuration "$(CONFIGURATION)" build
@@ -56,3 +56,7 @@ dmg: build
 clean:
 	xcodebuild -project "$(PROJECT)" -scheme "$(SCHEME)" -configuration "$(CONFIGURATION)" clean
 	rm -rf "$(DIST_DIR)"
+
+version:
+	@[ -n "$(VERSION)" ] || { echo "Usage: make version VERSION=1.6.0"; exit 1; }
+	bash scripts/bump_version.sh "$(VERSION)"

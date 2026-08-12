@@ -1,3 +1,5 @@
 dist/
 
 release_site/
+
+.DS_Store
