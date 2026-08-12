@@ -256,6 +256,7 @@ private struct ScheduleRow: View {
 
 private struct AboutPreferencesView: View {
     @State private var updateState: UpdateCheckState = .idle
+    @ObservedObject private var downloader = UpdateDownloader.shared
 
     private var currentVersion: String {
         Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0.0"
@@ -282,6 +283,11 @@ private struct AboutPreferencesView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(24)
+        .onChange(of: downloader.state) { newState in
+            if case .downloaded(let url) = newState {
+                NSWorkspace.shared.open(url)
+            }
+        }
     }
 
     @ViewBuilder
@@ -315,9 +321,44 @@ private struct AboutPreferencesView: View {
                 }
                 .font(.system(size: 13))
 
-                Button("Download v\(info.version)") {
-                    if let url = URL(string: info.url) {
-                        NSWorkspace.shared.open(url)
+                switch downloader.state {
+                case .idle:
+                    Button("Download v\(info.version)") {
+                        guard let url = URL(string: info.url) else { return }
+                        downloader.start(from: url, version: info.version)
+                    }
+                case .downloading(let progress):
+                    VStack(spacing: 4) {
+                        ProgressView(value: progress)
+                            .frame(width: 220)
+                        Text("Downloading… \(Int(progress * 100))%")
+                            .font(.system(size: 11))
+                            .foregroundStyle(.secondary)
+                    }
+                case .downloaded(let url):
+                    VStack(spacing: 6) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundStyle(.green)
+                            Text("Downloaded")
+                        }
+                        .font(.system(size: 13))
+
+                        Button("Open DMG") {
+                            NSWorkspace.shared.open(url)
+                        }
+                        .font(.system(size: 12))
+                    }
+                case .failed(let message):
+                    VStack(spacing: 6) {
+                        Text(message)
+                            .font(.system(size: 11))
+                            .foregroundStyle(.secondary)
+                        Button("Retry Download") {
+                            guard let url = URL(string: info.url) else { return }
+                            downloader.start(from: url, version: info.version)
+                        }
+                        .font(.system(size: 12))
                     }
                 }
             }
@@ -334,6 +375,7 @@ private struct AboutPreferencesView: View {
     }
 
     private func checkForUpdates() {
+        downloader.reset()
         updateState = .checking
         Task {
             do {
