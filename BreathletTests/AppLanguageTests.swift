@@ -6,7 +6,7 @@ final class AppLanguageTests: XCTestCase {
         XCTAssertEqual(AppLanguage(rawValue: "system"), .system)
         XCTAssertEqual(AppLanguage(rawValue: "english"), .english)
         XCTAssertEqual(AppLanguage(rawValue: "simplifiedChinese"), .simplifiedChinese)
-        XCTAssertEqual(AppLanguage(rawValue: "bogus"), .system)
+        XCTAssertNil(AppLanguage(rawValue: "bogus"))
     }
 
     func testAppleLanguagesValue() {
