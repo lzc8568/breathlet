@@ -31,6 +31,8 @@
 		1A0000182C00000100000001 /* HealthTipProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTipProvider.swift; sourceTree = "<group>"; };
 		1A0000192C00000100000001 /* UpdateChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateChecker.swift; sourceTree = "<group>"; };
 		1A00001A2C00000100000001 /* UpdateDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDownloader.swift; sourceTree = "<group>"; };
+		1A00001B2C00000100000001 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1A00001C2C00000100000001 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh-Hans; path = zh-Hans.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 			knownRegions = (
 				en,
 				Base,
+				zh-Hans,
 			);
 			mainGroup = 1A0000302C00000100000001;
 			productRefGroup = 1A0000322C00000100000001 /* Products */;
@@ -136,6 +139,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A0000062C00000100000001 /* Assets.xcassets in Resources */,
+				1A00001B2C00000100000001 /* en in Resources */,
+				1A00001C2C00000100000001 /* zh-Hans in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

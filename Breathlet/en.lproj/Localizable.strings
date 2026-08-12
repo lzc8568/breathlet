@@ -1,0 +1,119 @@
+/* Menu bar */
+"Break is running" = "Break is running";
+"Paused" = "Paused";
+"Next break in %@" = "Next break in %@";
+"Take Break Now" = "Take Break Now";
+"Resume" = "Resume";
+"Pause" = "Pause";
+"Reset Timer" = "Reset Timer";
+"Preferences..." = "Preferences...";
+"Quit Breathlet" = "Quit Breathlet";
+"Break" = "Break";
+
+/* Preferences */
+"General" = "General";
+"About" = "About";
+"Launch at system startup" = "Launch at system startup";
+"Show time in Menu Bar" = "Show time in Menu Bar";
+"Play sound when break ends" = "Play sound when break ends";
+"Fade in mask window" = "Fade in mask window";
+"Enable gradual wake-up fade" = "Enable gradual wake-up fade";
+"Fade duration" = "Fade duration";
+"%d seconds" = "%d seconds";
+"Pause when mouse inactive for 5 mins" = "Pause when mouse inactive for 5 mins";
+"Enable standup break" = "Enable standup break";
+"Breaks" = "Breaks";
+"Eye" = "Eye";
+"Standup" = "Standup";
+"Schedule" = "Schedule";
+"Appearance" = "Appearance";
+"Every" = "Every";
+"Break for" = "Break for";
+"mins" = "mins";
+"seconds" = "seconds";
+"eye breaks" = "eye breaks";
+"Mask opacity" = "Mask opacity";
+"%d%%" = "%d%%";
+"Message" = "Message";
+"Break message" = "Break message";
+
+/* About & updates */
+"A tiny menu bar reminder to rest your eyes during focused work." = "A tiny menu bar reminder to rest your eyes during focused work.";
+"Version %@" = "Version %@";
+"Check for Updates" = "Check for Updates";
+"Checking for updates…" = "Checking for updates…";
+"You're up to date (v%@)" = "You're up to date (v%@)";
+"v%@ is available" = "v%@ is available";
+"Download v%@" = "Download v%@";
+"Downloading… %d%%" = "Downloading… %d%%";
+"Downloaded" = "Downloaded";
+"Open DMG" = "Open DMG";
+"Unable to check for updates. Please try again." = "Unable to check for updates. Please try again.";
+"Retry" = "Retry";
+"Retry Download" = "Retry Download";
+
+/* Break overlay */
+"Skip Break" = "Skip Break";
+
+/* Default break message */
+"Time to take a break" = "Time to take a break";
+
+/* Health tips */
+"Take a moment" = "Take a moment";
+"Close your eyes" = "Close your eyes";
+"Take a deep breath" = "Take a deep breath";
+"Relax your shoulders" = "Relax your shoulders";
+"20-20-20 Rule" = "20-20-20 Rule";
+"Find an object 20 feet away" = "Find an object 20 feet away";
+"Focus on it for 20 seconds" = "Focus on it for 20 seconds";
+"Blink naturally" = "Blink naturally";
+"Eye Rolling" = "Eye Rolling";
+"Close your eyes gently" = "Close your eyes gently";
+"Roll eyes clockwise 5 times" = "Roll eyes clockwise 5 times";
+"Roll counter-clockwise 5 times" = "Roll counter-clockwise 5 times";
+"Open and blink" = "Open and blink";
+"Palming" = "Palming";
+"Rub your hands together" = "Rub your hands together";
+"Place warm palms over eyes" = "Place warm palms over eyes";
+"Relax for 10 seconds" = "Relax for 10 seconds";
+"Near-Far Focus" = "Near-Far Focus";
+"Hold thumb 10 inches away" = "Hold thumb 10 inches away";
+"Look at distant object for 5 seconds" = "Look at distant object for 5 seconds";
+"Repeat 5 times" = "Repeat 5 times";
+"Neck Rolls" = "Neck Rolls";
+"Sit up straight" = "Sit up straight";
+"Lower chin to chest" = "Lower chin to chest";
+"Roll head to the right" = "Roll head to the right";
+"Roll to center, then left" = "Roll to center, then left";
+"Shoulder Shrugs" = "Shoulder Shrugs";
+"Raise shoulders toward ears" = "Raise shoulders toward ears";
+"Hold for 3 seconds" = "Hold for 3 seconds";
+"Release and let drop" = "Release and let drop";
+"Box Breathing" = "Box Breathing";
+"Inhale for 4 seconds" = "Inhale for 4 seconds";
+"Hold for 4 seconds" = "Hold for 4 seconds";
+"Exhale for 4 seconds" = "Exhale for 4 seconds";
+"Deep Belly Breathing" = "Deep Belly Breathing";
+"Place hand on belly" = "Place hand on belly";
+"Inhale deeply through nose" = "Inhale deeply through nose";
+"Feel belly rise" = "Feel belly rise";
+"Exhale slowly through mouth" = "Exhale slowly through mouth";
+"Shoulder Blade Squeeze" = "Shoulder Blade Squeeze";
+"Sit or stand tall" = "Sit or stand tall";
+"Squeeze shoulder blades together" = "Squeeze shoulder blades together";
+"Hold for 5 seconds" = "Hold for 5 seconds";
+"Release and repeat 5 times" = "Release and repeat 5 times";
+"Chin Tucks" = "Chin Tucks";
+"Look straight ahead" = "Look straight ahead";
+"Pull chin straight back" = "Pull chin straight back";
+"Hold for 3 seconds" = "Hold for 3 seconds";
+"Release and repeat 10 times" = "Release and repeat 10 times";
+"Wrist Circles" = "Wrist Circles";
+"Extend arm forward" = "Extend arm forward";
+"Rotate wrist clockwise 10 times" = "Rotate wrist clockwise 10 times";
+"Rotate counter-clockwise 10 times" = "Rotate counter-clockwise 10 times";
+"Repeat with other hand" = "Repeat with other hand";
+"Finger Stretches" = "Finger Stretches";
+"Extend arm with palm up" = "Extend arm with palm up";
+"Pull fingers back gently" = "Pull fingers back gently";
+"Repeat with palm down" = "Repeat with palm down";

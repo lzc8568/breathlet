@@ -1,0 +1,118 @@
+/* Menu bar */
+"Break is running" = "休息正在进行";
+"Paused" = "已暂停";
+"Next break in %@" = "下次休息还有 %@";
+"Take Break Now" = "立即休息";
+"Resume" = "继续";
+"Pause" = "暂停";
+"Reset Timer" = "重置计时器";
+"Preferences..." = "偏好设置…";
+"Quit Breathlet" = "退出 Breathlet";
+"Break" = "休息";
+
+/* Preferences */
+"General" = "通用";
+"About" = "关于";
+"Launch at system startup" = "开机自动启动";
+"Show time in Menu Bar" = "在菜单栏显示时间";
+"Play sound when break ends" = "休息结束时播放声音";
+"Fade in mask window" = "遮罩窗口淡入";
+"Enable gradual wake-up fade" = "启用渐进唤醒淡出";
+"Fade duration" = "淡出时长";
+"%d seconds" = "%d 秒";
+"Pause when mouse inactive for 5 mins" = "鼠标静止 5 分钟时暂停";
+"Enable standup break" = "启用站立休息";
+"Breaks" = "休息类型";
+"Eye" = "眼部休息";
+"Standup" = "站立休息";
+"Schedule" = "日程";
+"Appearance" = "外观";
+"Every" = "每";
+"Break for" = "休息时长";
+"mins" = "分钟";
+"seconds" = "秒";
+"eye breaks" = "次眼部休息";
+"Mask opacity" = "遮罩不透明度";
+"%d%%" = "%d%%";
+"Message" = "提示消息";
+"Break message" = "休息提示语";
+
+/* About & updates */
+"A tiny menu bar reminder to rest your eyes during focused work." = "一个在专注工作时提醒你休息眼睛的菜单栏小应用。";
+"Version %@" = "版本 %@";
+"Check for Updates" = "检查更新";
+"Checking for updates…" = "正在检查更新…";
+"You're up to date (v%@)" = "已是最新版本（v%@）";
+"v%@ is available" = "发现新版本 v%@";
+"Download v%@" = "下载 v%@";
+"Downloading… %d%%" = "正在下载… %d%%";
+"Downloaded" = "已下载";
+"Open DMG" = "打开 DMG";
+"Unable to check for updates. Please try again." = "无法检查更新，请稍后重试。";
+"Retry" = "重试";
+"Retry Download" = "重新下载";
+
+/* Break overlay */
+"Skip Break" = "跳过休息";
+
+/* Default break message */
+"Time to take a break" = "该休息一下了";
+
+/* Health tips */
+"Take a moment" = "休息一下";
+"Close your eyes" = "闭上眼睛";
+"Take a deep breath" = "深呼吸";
+"Relax your shoulders" = "放松肩膀";
+"20-20-20 Rule" = "20-20-20 法则";
+"Find an object 20 feet away" = "看约 6 米外的物体";
+"Focus on it for 20 seconds" = "注视 20 秒";
+"Blink naturally" = "自然眨眼";
+"Eye Rolling" = "转眼球";
+"Close your eyes gently" = "轻轻闭上眼睛";
+"Roll eyes clockwise 5 times" = "顺时针转眼 5 圈";
+"Roll counter-clockwise 5 times" = "逆时针转眼 5 圈";
+"Open and blink" = "睁眼并眨眼";
+"Palming" = "掌心捂眼";
+"Rub your hands together" = "双手快速搓热";
+"Place warm palms over eyes" = "将温热的掌心盖在眼睛上";
+"Relax for 10 seconds" = "放松 10 秒";
+"Near-Far Focus" = "远近交替聚焦";
+"Hold thumb 10 inches away" = "将拇指举到面前约 25 厘米处";
+"Look at distant object for 5 seconds" = "看远处物体 5 秒";
+"Repeat 5 times" = "重复 5 次";
+"Neck Rolls" = "颈部环绕";
+"Sit up straight" = "坐直";
+"Lower chin to chest" = "下巴靠近胸口";
+"Roll head to the right" = "头向右转";
+"Roll to center, then left" = "回到中间，再向左转";
+"Shoulder Shrugs" = "耸肩放松";
+"Raise shoulders toward ears" = "双肩向耳朵方向耸起";
+"Hold for 3 seconds" = "保持 3 秒";
+"Release and let drop" = "放松放下";
+"Box Breathing" = "盒式呼吸";
+"Inhale for 4 seconds" = "吸气 4 秒";
+"Hold for 4 seconds" = "屏住 4 秒";
+"Exhale for 4 seconds" = "呼气 4 秒";
+"Deep Belly Breathing" = "腹式深呼吸";
+"Place hand on belly" = "把手放在腹部";
+"Inhale deeply through nose" = "用鼻子深吸气";
+"Feel belly rise" = "感受腹部鼓起";
+"Exhale slowly through mouth" = "用嘴缓慢呼气";
+"Shoulder Blade Squeeze" = "肩胛骨挤压";
+"Sit or stand tall" = "坐直或站直";
+"Squeeze shoulder blades together" = "两侧肩胛骨向中间夹紧";
+"Hold for 5 seconds" = "保持 5 秒";
+"Release and repeat 5 times" = "放松并重复 5 次";
+"Chin Tucks" = "收下巴";
+"Look straight ahead" = "目视前方";
+"Pull chin straight back" = "下巴水平向后收";
+"Release and repeat 10 times" = "放松并重复 10 次";
+"Wrist Circles" = "转动手腕";
+"Extend arm forward" = "手臂向前伸直";
+"Rotate wrist clockwise 10 times" = "顺时针转动手腕 10 圈";
+"Rotate counter-clockwise 10 times" = "逆时针转动手腕 10 圈";
+"Repeat with other hand" = "换另一只手重复";
+"Finger Stretches" = "手指拉伸";
+"Extend arm with palm up" = "手臂伸直、掌心朝上";
+"Pull fingers back gently" = "轻轻向后拉手指";
+"Repeat with palm down" = "掌心朝下重复";

@@ -14,8 +14,12 @@ final class HealthTipProvider {
     func getNextTip() -> HealthTip {
         guard !tips.isEmpty else {
             return HealthTip(
-                name: "Take a moment",
-                steps: ["Close your eyes", "Take a deep breath", "Relax your shoulders"],
+                name: NSLocalizedString("Take a moment", comment: ""),
+                steps: [
+                    NSLocalizedString("Close your eyes", comment: ""),
+                    NSLocalizedString("Take a deep breath", comment: ""),
+                    NSLocalizedString("Relax your shoulders", comment: "")
+                ],
                 symbolName: "figure.mind.and.body"
             )
         }
@@ -29,129 +33,129 @@ final class HealthTipProvider {
         tips = [
             // Eye Exercises
             HealthTip(
-                name: "20-20-20 Rule",
+                name: NSLocalizedString("20-20-20 Rule", comment: ""),
                 steps: [
-                    "Find an object 20 feet away",
-                    "Focus on it for 20 seconds",
-                    "Blink naturally"
+                    NSLocalizedString("Find an object 20 feet away", comment: ""),
+                    NSLocalizedString("Focus on it for 20 seconds", comment: ""),
+                    NSLocalizedString("Blink naturally", comment: "")
                 ],
                 symbolName: "eye"
             ),
             HealthTip(
-                name: "Eye Rolling",
+                name: NSLocalizedString("Eye Rolling", comment: ""),
                 steps: [
-                    "Close your eyes gently",
-                    "Roll eyes clockwise 5 times",
-                    "Roll counter-clockwise 5 times",
-                    "Open and blink"
+                    NSLocalizedString("Close your eyes gently", comment: ""),
+                    NSLocalizedString("Roll eyes clockwise 5 times", comment: ""),
+                    NSLocalizedString("Roll counter-clockwise 5 times", comment: ""),
+                    NSLocalizedString("Open and blink", comment: "")
                 ],
                 symbolName: "arrow.clockwise"
             ),
             HealthTip(
-                name: "Palming",
+                name: NSLocalizedString("Palming", comment: ""),
                 steps: [
-                    "Rub your hands together",
-                    "Close your eyes",
-                    "Place warm palms over eyes",
-                    "Relax for 10 seconds"
+                    NSLocalizedString("Rub your hands together", comment: ""),
+                    NSLocalizedString("Close your eyes", comment: ""),
+                    NSLocalizedString("Place warm palms over eyes", comment: ""),
+                    NSLocalizedString("Relax for 10 seconds", comment: "")
                 ],
                 symbolName: "hands.clap"
             ),
             HealthTip(
-                name: "Near-Far Focus",
+                name: NSLocalizedString("Near-Far Focus", comment: ""),
                 steps: [
-                    "Hold thumb 10 inches away",
-                    "Focus on it for 5 seconds",
-                    "Look at distant object for 5 seconds",
-                    "Repeat 5 times"
+                    NSLocalizedString("Hold thumb 10 inches away", comment: ""),
+                    NSLocalizedString("Focus on it for 5 seconds", comment: ""),
+                    NSLocalizedString("Look at distant object for 5 seconds", comment: ""),
+                    NSLocalizedString("Repeat 5 times", comment: "")
                 ],
                 symbolName: "arrow.left.and.right"
             ),
 
             // Neck & Shoulder
             HealthTip(
-                name: "Neck Rolls",
+                name: NSLocalizedString("Neck Rolls", comment: ""),
                 steps: [
-                    "Sit up straight",
-                    "Lower chin to chest",
-                    "Roll head to the right",
-                    "Roll to center, then left"
+                    NSLocalizedString("Sit up straight", comment: ""),
+                    NSLocalizedString("Lower chin to chest", comment: ""),
+                    NSLocalizedString("Roll head to the right", comment: ""),
+                    NSLocalizedString("Roll to center, then left", comment: "")
                 ],
                 symbolName: "figure.walk"
             ),
             HealthTip(
-                name: "Shoulder Shrugs",
+                name: NSLocalizedString("Shoulder Shrugs", comment: ""),
                 steps: [
-                    "Raise shoulders toward ears",
-                    "Hold for 3 seconds",
-                    "Release and let drop",
-                    "Repeat 5 times"
+                    NSLocalizedString("Raise shoulders toward ears", comment: ""),
+                    NSLocalizedString("Hold for 3 seconds", comment: ""),
+                    NSLocalizedString("Release and let drop", comment: ""),
+                    NSLocalizedString("Repeat 5 times", comment: "")
                 ],
                 symbolName: "figure.strengthtraining.traditional"
             ),
 
             // Breathing
             HealthTip(
-                name: "Box Breathing",
+                name: NSLocalizedString("Box Breathing", comment: ""),
                 steps: [
-                    "Inhale for 4 seconds",
-                    "Hold for 4 seconds",
-                    "Exhale for 4 seconds",
-                    "Hold for 4 seconds"
+                    NSLocalizedString("Inhale for 4 seconds", comment: ""),
+                    NSLocalizedString("Hold for 4 seconds", comment: ""),
+                    NSLocalizedString("Exhale for 4 seconds", comment: ""),
+                    NSLocalizedString("Hold for 4 seconds", comment: "")
                 ],
                 symbolName: "rectangle"
             ),
             HealthTip(
-                name: "Deep Belly Breathing",
+                name: NSLocalizedString("Deep Belly Breathing", comment: ""),
                 steps: [
-                    "Place hand on belly",
-                    "Inhale deeply through nose",
-                    "Feel belly rise",
-                    "Exhale slowly through mouth"
+                    NSLocalizedString("Place hand on belly", comment: ""),
+                    NSLocalizedString("Inhale deeply through nose", comment: ""),
+                    NSLocalizedString("Feel belly rise", comment: ""),
+                    NSLocalizedString("Exhale slowly through mouth", comment: "")
                 ],
                 symbolName: "wind"
             ),
 
             // Posture
             HealthTip(
-                name: "Shoulder Blade Squeeze",
+                name: NSLocalizedString("Shoulder Blade Squeeze", comment: ""),
                 steps: [
-                    "Sit or stand tall",
-                    "Squeeze shoulder blades together",
-                    "Hold for 5 seconds",
-                    "Release and repeat 5 times"
+                    NSLocalizedString("Sit or stand tall", comment: ""),
+                    NSLocalizedString("Squeeze shoulder blades together", comment: ""),
+                    NSLocalizedString("Hold for 5 seconds", comment: ""),
+                    NSLocalizedString("Release and repeat 5 times", comment: "")
                 ],
                 symbolName: "figure.stand"
             ),
             HealthTip(
-                name: "Chin Tucks",
+                name: NSLocalizedString("Chin Tucks", comment: ""),
                 steps: [
-                    "Look straight ahead",
-                    "Pull chin straight back",
-                    "Hold for 3 seconds",
-                    "Release and repeat 10 times"
+                    NSLocalizedString("Look straight ahead", comment: ""),
+                    NSLocalizedString("Pull chin straight back", comment: ""),
+                    NSLocalizedString("Hold for 3 seconds", comment: ""),
+                    NSLocalizedString("Release and repeat 10 times", comment: "")
                 ],
                 symbolName: "figure.seated.side.air.lowering.one.hand.arm"
             ),
 
             // Hand & Wrist
             HealthTip(
-                name: "Wrist Circles",
+                name: NSLocalizedString("Wrist Circles", comment: ""),
                 steps: [
-                    "Extend arm forward",
-                    "Rotate wrist clockwise 10 times",
-                    "Rotate counter-clockwise 10 times",
-                    "Repeat with other hand"
+                    NSLocalizedString("Extend arm forward", comment: ""),
+                    NSLocalizedString("Rotate wrist clockwise 10 times", comment: ""),
+                    NSLocalizedString("Rotate counter-clockwise 10 times", comment: ""),
+                    NSLocalizedString("Repeat with other hand", comment: "")
                 ],
                 symbolName: "hand.raised"
             ),
             HealthTip(
-                name: "Finger Stretches",
+                name: NSLocalizedString("Finger Stretches", comment: ""),
                 steps: [
-                    "Extend arm with palm up",
-                    "Pull fingers back gently",
-                    "Hold for 10 seconds",
-                    "Repeat with palm down"
+                    NSLocalizedString("Extend arm with palm up", comment: ""),
+                    NSLocalizedString("Pull fingers back gently", comment: ""),
+                    NSLocalizedString("Hold for 10 seconds", comment: ""),
+                    NSLocalizedString("Repeat with palm down", comment: "")
                 ],
                 symbolName: "hand.point.up"
             )

@@ -95,7 +95,10 @@ private struct GeneralPreferencesView: View {
                     ), in: 1...10, step: 1)
                     .frame(width: 120)
 
-                    Text("\(preferences.gradualWakeUpSeconds) seconds")
+                    Text(String(
+                        format: NSLocalizedString("%d seconds", comment: ""),
+                        preferences.gradualWakeUpSeconds
+                    ))
                         .monospacedDigit()
                         .frame(width: 70, alignment: .leading)
                 }
@@ -195,14 +198,34 @@ private struct BreakPreferencesView: View {
     private var scheduleContent: some View {
         if selectedBreak == .eye {
             VStack(spacing: 10) {
-                ScheduleRow(label: "Every", value: $preferences.eyeBreakEveryMinutes, range: 1...180, unit: "mins")
-                ScheduleRow(label: "Break for", value: $preferences.eyeBreakDurationSeconds, range: 5...600, unit: "seconds")
+                ScheduleRow(
+                    label: NSLocalizedString("Every", comment: ""),
+                    value: $preferences.eyeBreakEveryMinutes,
+                    range: 1...180,
+                    unit: NSLocalizedString("mins", comment: "")
+                )
+                ScheduleRow(
+                    label: NSLocalizedString("Break for", comment: ""),
+                    value: $preferences.eyeBreakDurationSeconds,
+                    range: 5...600,
+                    unit: NSLocalizedString("seconds", comment: "")
+                )
             }
             .font(.system(size: 14))
         } else {
             VStack(spacing: 10) {
-                ScheduleRow(label: "Break for", value: $preferences.standupBreakDurationMinutes, range: 1...60, unit: "mins")
-                ScheduleRow(label: "Every", value: $preferences.standupEveryEyeBreaks, range: 1...24, unit: "eye breaks")
+                ScheduleRow(
+                    label: NSLocalizedString("Break for", comment: ""),
+                    value: $preferences.standupBreakDurationMinutes,
+                    range: 1...60,
+                    unit: NSLocalizedString("mins", comment: "")
+                )
+                ScheduleRow(
+                    label: NSLocalizedString("Every", comment: ""),
+                    value: $preferences.standupEveryEyeBreaks,
+                    range: 1...24,
+                    unit: NSLocalizedString("eye breaks", comment: "")
+                )
             }
             .font(.system(size: 14))
         }
@@ -217,7 +240,10 @@ private struct BreakPreferencesView: View {
                     set: { preferences.maskOpacityPercent = Int($0) }
                 ), in: 30...95, step: 1)
                 .frame(width: 160)
-                Text("\(preferences.maskOpacityPercent)%")
+                Text(String(
+                    format: NSLocalizedString("%d%%", comment: ""),
+                    preferences.maskOpacityPercent
+                ))
                     .monospacedDigit()
                     .frame(width: 36, alignment: .trailing)
             }
@@ -272,7 +298,10 @@ private struct AboutPreferencesView: View {
             Text("A tiny menu bar reminder to rest your eyes during focused work.")
                 .foregroundStyle(.secondary)
                 .font(.system(size: 13))
-            Text("Version \(currentVersion)")
+            Text(String(
+                format: NSLocalizedString("Version %@", comment: ""),
+                currentVersion
+            ))
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
 
@@ -309,7 +338,10 @@ private struct AboutPreferencesView: View {
             HStack(spacing: 6) {
                 Image(systemName: "checkmark.circle.fill")
                     .foregroundStyle(.green)
-                Text("You're up to date (v\(currentVersion))")
+                Text(String(
+                    format: NSLocalizedString("You're up to date (v%@)", comment: ""),
+                    currentVersion
+                ))
             }
             .font(.system(size: 13))
         case .updateAvailable(let info):
@@ -317,21 +349,32 @@ private struct AboutPreferencesView: View {
                 HStack(spacing: 6) {
                     Image(systemName: "arrow.down.circle.fill")
                         .foregroundStyle(.blue)
-                    Text("v\(info.version) is available")
+                    Text(String(
+                        format: NSLocalizedString("v%@ is available", comment: ""),
+                        info.version
+                    ))
                 }
                 .font(.system(size: 13))
 
                 switch downloader.state {
                 case .idle:
-                    Button("Download v\(info.version)") {
+                    Button {
                         guard let url = URL(string: info.url) else { return }
                         downloader.start(from: url, version: info.version)
+                    } label: {
+                        Text(String(
+                            format: NSLocalizedString("Download v%@", comment: ""),
+                            info.version
+                        ))
                     }
                 case .downloading(let progress):
                     VStack(spacing: 4) {
                         ProgressView(value: progress)
                             .frame(width: 220)
-                        Text("Downloading… \(Int(progress * 100))%")
+                        Text(String(
+                            format: NSLocalizedString("Downloading… %d%%", comment: ""),
+                            Int(progress * 100)
+                        ))
                             .font(.system(size: 11))
                             .foregroundStyle(.secondary)
                     }

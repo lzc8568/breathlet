@@ -16,6 +16,7 @@ A tiny native macOS menu bar app that reminds you to rest after a focused work i
 - Optional break-end sound and mouse-inactivity pause.
 - Launch at system startup; show or hide the countdown in the menu bar.
 - Check for updates in the About pane, backed by a here.now-hosted update manifest.
+- Localized UI (English / 简体中文) that follows the system language.
 - Preferences with General settings and per-break Schedule/Appearance tabs.
 
 ## Download

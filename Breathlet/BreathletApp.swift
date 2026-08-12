@@ -47,7 +47,7 @@ private struct MenuBarContentView: View {
         }
         .keyboardShortcut("b")
 
-        Button(controller.isPaused ? "Resume" : "Pause") {
+        Button(controller.isPaused ? LocalizedStringKey("Resume") : LocalizedStringKey("Pause")) {
             controller.togglePause()
         }
         .keyboardShortcut("p")
@@ -75,12 +75,15 @@ private struct MenuBarContentView: View {
 
     private var statusText: String {
         if controller.isBreakActive {
-            return "Break is running"
+            return NSLocalizedString("Break is running", comment: "")
         }
         if controller.isPaused {
-            return "Paused"
+            return NSLocalizedString("Paused", comment: "")
         }
-        return "Next break in \(controller.menuBarTitle)"
+        return String(
+            format: NSLocalizedString("Next break in %@", comment: ""),
+            controller.menuBarTitle
+        )
     }
 
     private func openSettings() {

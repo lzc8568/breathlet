@@ -36,9 +36,13 @@ final class BreakController: ObservableObject {
 
     var menuBarTitle: String {
         guard preferences.showTimeInMenuBar else {
-            return isBreakActive ? "Break" : (isPaused ? "Paused" : "Breathlet")
+            return isBreakActive
+                ? NSLocalizedString("Break", comment: "")
+                : (isPaused ? NSLocalizedString("Paused", comment: "") : "Breathlet")
         }
-        return isBreakActive ? "Break" : (isPaused ? "Paused" : format(seconds: remainingWorkSeconds))
+        return isBreakActive
+            ? NSLocalizedString("Break", comment: "")
+            : (isPaused ? NSLocalizedString("Paused", comment: "") : format(seconds: remainingWorkSeconds))
     }
 
     func start() {

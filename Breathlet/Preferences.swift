@@ -9,8 +9,8 @@ enum BreakKind: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .eye: "Eye"
-        case .standup: "Standup"
+        case .eye: NSLocalizedString("Eye", comment: "")
+        case .standup: NSLocalizedString("Standup", comment: "")
         }
     }
 }
@@ -23,8 +23,8 @@ enum BreakSettingsTab: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .schedule: "Schedule"
-        case .appearance: "Appearance"
+        case .schedule: NSLocalizedString("Schedule", comment: "")
+        case .appearance: NSLocalizedString("Appearance", comment: "")
         }
     }
 }
@@ -46,7 +46,7 @@ final class Preferences: ObservableObject {
     @AppStorage("standupEveryEyeBreaks") var standupEveryEyeBreaks = 2
 
     @AppStorage("maskOpacityPercent") var maskOpacityPercent = 82
-    @AppStorage("breakMessage") var breakMessage = "Time to take a break"
+    @AppStorage("breakMessage") var breakMessage = NSLocalizedString("Time to take a break", comment: "")
 
     @AppStorage("enableGradualWakeUp") var enableGradualWakeUp = true
     @AppStorage("gradualWakeUpSeconds") var gradualWakeUpSeconds = 5
