@@ -6,6 +6,7 @@ struct BreathletApp: App {
     @StateObject private var controller: BreakController
 
     init() {
+        LanguageManager.applyStoredLanguage()
         _controller = StateObject(wrappedValue: BreakController(preferences: Preferences.shared))
     }
 

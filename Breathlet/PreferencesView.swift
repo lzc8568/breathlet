@@ -73,6 +73,8 @@ struct PreferencesView: View {
 
 private struct GeneralPreferencesView: View {
     @EnvironmentObject private var preferences: Preferences
+    @State private var showRestartAlert = false
+    @State private var pendingLanguage: AppLanguage = .system
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -108,12 +110,35 @@ private struct GeneralPreferencesView: View {
 
             Toggle("Pause when mouse inactive for 5 mins", isOn: $preferences.pauseWhenMouseInactive)
             Toggle("Enable standup break", isOn: $preferences.enableStandupBreak)
+
+            Divider()
+
+            HStack(spacing: 12) {
+                Text("Language")
+                Spacer()
+                Picker("", selection: languageBinding) {
+                    ForEach(AppLanguage.allCases) { language in
+                        Text(language.displayName).tag(language)
+                    }
+                }
+                .pickerStyle(.menu)
+                .frame(width: 140)
+            }
         }
         .toggleStyle(.checkbox)
         .font(.system(size: 14))
         .padding(.top, 20)
         .padding(.leading, 80)
+        .padding(.trailing, 80)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .alert(NSLocalizedString("Restart required", comment: ""), isPresented: $showRestartAlert) {
+            Button(NSLocalizedString("Restart Now", comment: "")) {
+                applyAndRelaunch()
+            }
+            Button(NSLocalizedString("Cancel", comment: ""), role: .cancel) {}
+        } message: {
+            Text(NSLocalizedString("The language change will take effect after restart.", comment: ""))
+        }
     }
 
     private var launchBinding: Binding<Bool> {
@@ -123,6 +148,23 @@ private struct GeneralPreferencesView: View {
             preferences.launchAtStartup = newValue
             updateLoginItem(enabled: newValue)
         }
+    }
+
+    private var languageBinding: Binding<AppLanguage> {
+        Binding {
+            preferences.appLanguage
+        } set: { newValue in
+            guard newValue != preferences.appLanguage else { return }
+            pendingLanguage = newValue
+            showRestartAlert = true
+        }
+    }
+
+    private func applyAndRelaunch() {
+        preferences.appLanguage = pendingLanguage
+        LanguageManager.storedLanguage = pendingLanguage
+        LanguageManager.applyStoredLanguage()
+        LanguageManager.relaunch()
     }
 
     private func updateLoginItem(enabled: Bool) {

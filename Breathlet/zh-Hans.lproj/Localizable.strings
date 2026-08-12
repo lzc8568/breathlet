@@ -23,6 +23,12 @@
 "Pause when mouse inactive for 5 mins" = "鼠标静止 5 分钟时暂停";
 "Enable standup break" = "启用站立休息";
 "Breaks" = "休息类型";
+"Language" = "语言";
+"System" = "跟随系统";
+"Restart required" = "需要重启";
+"Restart Now" = "立即重启";
+"Cancel" = "取消";
+"The language change will take effect after restart." = "语言切换将在重启后生效。";
 "Eye" = "眼部休息";
 "Standup" = "站立休息";
 "Schedule" = "日程";

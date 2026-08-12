@@ -23,6 +23,12 @@
 "Pause when mouse inactive for 5 mins" = "Pause when mouse inactive for 5 mins";
 "Enable standup break" = "Enable standup break";
 "Breaks" = "Breaks";
+"Language" = "Language";
+"System" = "System";
+"Restart required" = "Restart required";
+"Restart Now" = "Restart Now";
+"Cancel" = "Cancel";
+"The language change will take effect after restart." = "The language change will take effect after restart.";
 "Eye" = "Eye";
 "Standup" = "Standup";
 "Schedule" = "Schedule";
