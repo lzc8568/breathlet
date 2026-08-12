@@ -38,7 +38,7 @@ if [ -n "${RELEASE_BASE_URL:-}" ]; then
   for f in $existing; do
     [ -f "$SITE_DIR/$f" ] || curl -sL -o "$SITE_DIR/$f" "$RELEASE_BASE_URL/$f" || true
   done
-  ls -1 "$SITE_DIR"/*.dmg 2>/dev/null | xargs -r -n1 basename
+  ls -1 "$SITE_DIR"/*.dmg 2>/dev/null | xargs -r -n1 basename || true
 fi
 
 # 1. 放入新 DMG
