@@ -9,6 +9,7 @@
 "Preferences..." = "Preferences...";
 "Quit Breathlet" = "Quit Breathlet";
 "Break" = "Break";
+"Break %@" = "Break %@";
 
 /* Preferences */
 "General" = "General";
@@ -58,6 +59,8 @@
 "Retry" = "Retry";
 "Retry Download" = "Retry Download";
 "Download verification failed" = "Download verification failed";
+"Breathlet update available" = "Breathlet update available";
+"Version %@ is now available." = "Version %@ is now available.";
 
 /* Break overlay */
 "Skip Break" = "Skip Break";

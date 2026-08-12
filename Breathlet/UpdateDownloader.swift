@@ -1,8 +1,9 @@
 import CryptoKit
+import Combine
 import Foundation
 
 /// 在 App 内下载新版本 DMG（进度、完成、失败状态），下载完成后自动挂载。
-final class UpdateDownloader: NSObject, ObservableObject {
+final class UpdateDownloader: NSObject {
     enum State: Equatable {
         case idle
         case downloading(progress: Double)
@@ -12,12 +13,22 @@ final class UpdateDownloader: NSObject, ObservableObject {
 
     static let shared = UpdateDownloader()
 
-    @Published private(set) var state: State = .idle
+    /// 主线程隔离的下载状态，供 UI 观察（Swift 6 严格并发下避免跨线程裸写 @Published）。
+    @MainActor
+    final class Model: ObservableObject {
+        @Published fileprivate(set) var state: State = .idle
 
-    private var session: URLSession?
-    private var task: URLSessionDownloadTask?
-    private var destinationURL: URL?
-    private var expectedSHA256: String?
+        nonisolated init() {}
+    }
+
+    let model = Model()
+
+    // 以下状态仅在 URLSession 代理队列上读写（taskIdentifier 做守卫），
+    // 通过 nonisolated(unsafe) 显式声明由人工保证同步。
+    nonisolated(unsafe) private var session: URLSession?
+    nonisolated(unsafe) private var task: URLSessionDownloadTask?
+    nonisolated(unsafe) private var destinationURL: URL?
+    nonisolated(unsafe) private var expectedSHA256: String?
 
     private override init() {
         super.init()
@@ -54,8 +65,8 @@ final class UpdateDownloader: NSObject, ObservableObject {
     }
 
     private func setState(_ newState: State) {
-        DispatchQueue.main.async {
-            self.state = newState
+        Task { @MainActor in
+            model.state = newState
         }
     }
 }

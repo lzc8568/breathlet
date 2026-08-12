@@ -1,4 +1,5 @@
 import Foundation
+import UserNotifications
 
 /// here.now 上下发的更新清单（由 release workflow 自动生成并发布）。
 struct UpdateInfo: Codable {
@@ -55,5 +56,47 @@ enum UpdateChecker {
             if av != bv { return av > bv }
         }
         return false
+    }
+}
+
+/// 启动时静默检查更新：每天最多一次，发现新版本才通过通知中心提示。
+enum SilentUpdateChecker {
+    private static let lastCheckDateKey = "lastSilentUpdateCheckDate"
+    private static let minimumInterval: TimeInterval = 24 * 60 * 60
+
+    static func checkIfNeeded() {
+        let defaults = UserDefaults.standard
+        let lastCheck = defaults.object(forKey: lastCheckDateKey) as? Date ?? .distantPast
+        guard Date().timeIntervalSince(lastCheck) >= minimumInterval else { return }
+        defaults.set(Date(), forKey: lastCheckDateKey)
+
+        Task {
+            do {
+                let info = try await UpdateChecker.checkLatest()
+                let current = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.0.0"
+                guard UpdateChecker.isNewer(info.version, than: current) else { return }
+                await notify(version: info.version)
+            } catch {
+                // 静默失败：不打扰用户，下次启动再试。
+            }
+        }
+    }
+
+    private static func notify(version: String) async {
+        let center = UNUserNotificationCenter.current()
+        // 延迟到真正发现新版本时才申请通知权限，避免一启动就弹授权框。
+        guard (try? await center.requestAuthorization(options: [.alert, .sound])) == true else { return }
+
+        let content = UNMutableNotificationContent()
+        content.title = NSLocalizedString("Breathlet update available", comment: "")
+        content.body = String(format: NSLocalizedString("Version %@ is now available.", comment: ""), version)
+        content.sound = .default
+
+        let request = UNNotificationRequest(
+            identifier: "breathlet-update-available",
+            content: content,
+            trigger: nil
+        )
+        try? await center.add(request)
     }
 }

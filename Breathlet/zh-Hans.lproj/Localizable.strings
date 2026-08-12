@@ -9,6 +9,7 @@
 "Preferences..." = "偏好设置…";
 "Quit Breathlet" = "退出 Breathlet";
 "Break" = "休息";
+"Break %@" = "休息 %@";
 
 /* Preferences */
 "General" = "通用";
@@ -58,6 +59,8 @@
 "Retry" = "重试";
 "Retry Download" = "重新下载";
 "Download verification failed" = "下载校验失败";
+"Breathlet update available" = "Breathlet 有新版本";
+"Version %@ is now available." = "新版本 %@ 已可用。";
 
 /* Break overlay */
 "Skip Break" = "跳过休息";

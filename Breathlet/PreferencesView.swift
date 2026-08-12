@@ -333,7 +333,7 @@ private struct ScheduleRow: View {
 
 private struct AboutPreferencesView: View {
     @State private var updateState: UpdateCheckState = .idle
-    @ObservedObject private var downloader = UpdateDownloader.shared
+    @ObservedObject private var updateModel = UpdateDownloader.shared.model
 
     private var currentVersion: String {
         Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0.0"
@@ -402,11 +402,11 @@ private struct AboutPreferencesView: View {
                 }
                 .font(.system(size: 13))
 
-                switch downloader.state {
+                switch updateModel.state {
                 case .idle:
                     Button {
                         guard let url = URL(string: info.url) else { return }
-                        downloader.start(from: url, version: info.version, sha256: info.sha256)
+                        UpdateDownloader.shared.start(from: url, version: info.version, sha256: info.sha256)
                     } label: {
                         Text(String(
                             format: NSLocalizedString("Download v%@", comment: ""),
@@ -445,7 +445,7 @@ private struct AboutPreferencesView: View {
                             .foregroundStyle(.secondary)
                         Button("Retry Download") {
                             guard let url = URL(string: info.url) else { return }
-                            downloader.start(from: url, version: info.version, sha256: info.sha256)
+                            UpdateDownloader.shared.start(from: url, version: info.version, sha256: info.sha256)
                         }
                         .font(.system(size: 12))
                     }
@@ -464,7 +464,7 @@ private struct AboutPreferencesView: View {
     }
 
     private func checkForUpdates() {
-        downloader.reset()
+        UpdateDownloader.shared.reset()
         updateState = .checking
         Task {
             do {

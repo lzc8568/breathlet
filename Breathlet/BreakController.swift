@@ -32,6 +32,7 @@ final class BreakController: ObservableObject {
     @Published private(set) var remainingWorkSeconds: Int
     @Published private(set) var isBreakActive = false
     @Published private(set) var isPaused = false
+    @Published private(set) var remainingBreakSeconds = 0
 
     /// 休息正式开始前的预告倒计时秒数。
     private static let breakCountdownSeconds = 5
@@ -92,9 +93,15 @@ final class BreakController: ObservableObject {
                 ? NSLocalizedString("Break", comment: "")
                 : (isPaused ? NSLocalizedString("Paused", comment: "") : "Breathlet")
         }
-        return isBreakActive
-            ? NSLocalizedString("Break", comment: "")
-            : (isPaused ? NSLocalizedString("Paused", comment: "") : TimeFormat.string(seconds: remainingWorkSeconds))
+        if isBreakActive {
+            return String(
+                format: NSLocalizedString("Break %@", comment: ""),
+                TimeFormat.string(seconds: remainingBreakSeconds)
+            )
+        }
+        return isPaused
+            ? NSLocalizedString("Paused", comment: "")
+            : TimeFormat.string(seconds: remainingWorkSeconds)
     }
 
     func start() {
@@ -155,6 +162,8 @@ final class BreakController: ObservableObject {
         if isBreakActive {
             if let breakEndsAt, Date() >= breakEndsAt {
                 endBreak(playSound: preferences.playSoundWhenBreakEnds)
+            } else if let breakEndsAt {
+                remainingBreakSeconds = Self.remainingSeconds(until: breakEndsAt)
             }
             return
         }
@@ -237,6 +246,7 @@ final class BreakController: ObservableObject {
             : max(preferences.eyeBreakDurationSeconds, 1)
         let endDate = Date().addingTimeInterval(TimeInterval(duration))
         breakEndsAt = endDate
+        remainingBreakSeconds = duration
 
         let healthTip = HealthTipProvider.shared.getNextTip()
 
@@ -265,6 +275,7 @@ final class BreakController: ObservableObject {
         overlay.hide()
         isBreakActive = false
         breakEndsAt = nil
+        remainingBreakSeconds = 0
         pendingBreakKind = nil
         countdownTask?.cancel()
         countdownTask = nil
@@ -278,5 +289,9 @@ final class BreakController: ObservableObject {
     private func resetWorkTimerAfterBreak() {
         remainingWorkSeconds = max(preferences.eyeBreakEveryMinutes, 1) * 60
         workEndsAt = Date().addingTimeInterval(TimeInterval(remainingWorkSeconds))
+    }
+
+    private static func remainingSeconds(until date: Date) -> Int {
+        max(Int(date.timeIntervalSinceNow.rounded(.up)), 0)
     }
 }

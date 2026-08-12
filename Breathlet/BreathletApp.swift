@@ -27,6 +27,7 @@ struct BreathletApp: App {
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
+        SilentUpdateChecker.checkIfNeeded()
     }
 }
 
