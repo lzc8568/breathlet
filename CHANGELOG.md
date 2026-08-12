@@ -2,7 +2,7 @@
 
 本项目的显著变更都会记录在此文件。
 
-## [Unreleased]
+## [1.7.0] - 2026-08-12
 
 ### Added
 - PR 构建与测试（GitHub Actions CI）
