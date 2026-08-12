@@ -15,6 +15,7 @@
 		1A0000062C00000100000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A0000162C00000100000001 /* Assets.xcassets */; };
 		1A0000072C00000100000001 /* HealthTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000172C00000100000001 /* HealthTip.swift */; };
 		1A0000082C00000100000001 /* HealthTipProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000182C00000100000001 /* HealthTipProvider.swift */; };
+		1A0000092C00000100000001 /* UpdateChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000192C00000100000001 /* UpdateChecker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		1A0000162C00000100000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A0000172C00000100000001 /* HealthTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTip.swift; sourceTree = "<group>"; };
 		1A0000182C00000100000001 /* HealthTipProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTipProvider.swift; sourceTree = "<group>"; };
+		1A0000192C00000100000001 /* UpdateChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateChecker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 				1A0000152C00000100000001 /* BreakOverlay.swift */,
 				1A0000172C00000100000001 /* HealthTip.swift */,
 				1A0000182C00000100000001 /* HealthTipProvider.swift */,
+				1A0000192C00000100000001 /* UpdateChecker.swift */,
 				1A0000162C00000100000001 /* Assets.xcassets */,
 			);
 			path = Breathlet;
@@ -147,6 +150,7 @@
 				1A0000052C00000100000001 /* BreakOverlay.swift in Sources */,
 				1A0000072C00000100000001 /* HealthTip.swift in Sources */,
 				1A0000082C00000100000001 /* HealthTipProvider.swift in Sources */,
+				1A0000092C00000100000001 /* UpdateChecker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

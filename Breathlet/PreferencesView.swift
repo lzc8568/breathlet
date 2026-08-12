@@ -1,3 +1,4 @@
+import AppKit
 import ServiceManagement
 import SwiftUI
 
@@ -254,6 +255,12 @@ private struct ScheduleRow: View {
 }
 
 private struct AboutPreferencesView: View {
+    @State private var updateState: UpdateCheckState = .idle
+
+    private var currentVersion: String {
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0.0"
+    }
+
     var body: some View {
         VStack(spacing: 10) {
             Image(systemName: "cup.and.saucer.fill")
@@ -264,12 +271,82 @@ private struct AboutPreferencesView: View {
             Text("A tiny menu bar reminder to rest your eyes during focused work.")
                 .foregroundStyle(.secondary)
                 .font(.system(size: 13))
-            Text("Version 1.3.1")
+            Text("Version \(currentVersion)")
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
+
+            Divider()
+                .frame(width: 260)
+
+            updateSection
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(24)
+    }
+
+    @ViewBuilder
+    private var updateSection: some View {
+        switch updateState {
+        case .idle:
+            Button("Check for Updates") {
+                checkForUpdates()
+            }
+        case .checking:
+            HStack(spacing: 8) {
+                ProgressView()
+                    .controlSize(.small)
+                Text("Checking for updates…")
+                    .foregroundStyle(.secondary)
+            }
+            .font(.system(size: 13))
+        case .upToDate:
+            HStack(spacing: 6) {
+                Image(systemName: "checkmark.circle.fill")
+                    .foregroundStyle(.green)
+                Text("You're up to date (v\(currentVersion))")
+            }
+            .font(.system(size: 13))
+        case .updateAvailable(let info):
+            VStack(spacing: 8) {
+                HStack(spacing: 6) {
+                    Image(systemName: "arrow.down.circle.fill")
+                        .foregroundStyle(.blue)
+                    Text("v\(info.version) is available")
+                }
+                .font(.system(size: 13))
+
+                Button("Download v\(info.version)") {
+                    if let url = URL(string: info.url) {
+                        NSWorkspace.shared.open(url)
+                    }
+                }
+            }
+        case .failed(let message):
+            VStack(spacing: 8) {
+                Text(message)
+                    .foregroundStyle(.secondary)
+                    .font(.system(size: 12))
+                Button("Retry") {
+                    checkForUpdates()
+                }
+            }
+        }
+    }
+
+    private func checkForUpdates() {
+        updateState = .checking
+        Task {
+            do {
+                let info = try await UpdateChecker.checkLatest()
+                if UpdateChecker.isNewer(info.version, than: currentVersion) {
+                    updateState = .updateAvailable(info)
+                } else {
+                    updateState = .upToDate
+                }
+            } catch {
+                updateState = .failed("Unable to check for updates. Please try again.")
+            }
+        }
     }
 }
 

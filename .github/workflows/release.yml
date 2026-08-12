@@ -38,3 +38,20 @@ jobs:
               --title "$TAG_NAME" \
               --generate-notes
           fi
+
+      - name: Publish to here.now (on tag)
+        env:
+          HERENOW_API_KEY: ${{ secrets.HERENOW_API_KEY }}
+          SLUG: emerald-globe-xmny
+          RELEASE_BASE_URL: https://emerald-globe-xmny.here.now
+        run: |
+          set -euo pipefail
+          if [ -z "${HERENOW_API_KEY:-}" ]; then
+            echo "⚠️ 未配置 HERENOW_API_KEY secret，跳过 here.now 发布（GitHub Release 已生成）。"
+            echo "   在仓库 Settings → Secrets and variables → Actions 添加 HERENOW_API_KEY 后，重跑本 job 即可自动发布。"
+            exit 0
+          fi
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "发布版本：${VERSION}"
+          chmod +x scripts/publish_release.sh scripts/herenow/publish.sh
+          bash scripts/publish_release.sh dist/Breathlet.dmg "${VERSION}"
