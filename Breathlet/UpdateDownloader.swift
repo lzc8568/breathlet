@@ -2,7 +2,7 @@ import Foundation
 
 /// 在 App 内下载新版本 DMG（进度、完成、失败状态），下载完成后自动挂载。
 final class UpdateDownloader: NSObject, ObservableObject {
-    enum State {
+    enum State: Equatable {
         case idle
         case downloading(progress: Double)
         case downloaded(URL)
