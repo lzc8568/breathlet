@@ -22,12 +22,22 @@ enum UpdateCheckState {
 }
 
 enum UpdateChecker {
-    static let manifestURL = URL(string: "https://emerald-globe-xmny.here.now/latest.json")!
+    private static let manifestBaseURL = URL(string: "https://emerald-globe-xmny.here.now/latest.json")!
+
+    // 更新检查必须每次强制取最新：用临时会话，不落缓存
+    private static let session: URLSession = {
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        configuration.timeoutIntervalForRequest = 15
+        return URLSession(configuration: configuration)
+    }()
 
     static func checkLatest() async throws -> UpdateInfo {
-        var request = URLRequest(url: manifestURL)
-        request.timeoutInterval = 15
-        let (data, response) = try await URLSession.shared.data(for: request)
+        // 时间戳参数绕过任何中间/CDN 缓存，保证拿到最新 manifest
+        let url = manifestBaseURL.appending(queryItems: [
+            URLQueryItem(name: "t", value: "\(Int(Date().timeIntervalSince1970))")
+        ])
+        let (data, response) = try await session.data(from: url)
         if let http = response as? HTTPURLResponse, !(200..<300).contains(http.statusCode) {
             throw URLError(.badServerResponse)
         }
