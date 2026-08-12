@@ -17,6 +17,7 @@
 		1A0000082C00000100000001 /* HealthTipProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000182C00000100000001 /* HealthTipProvider.swift */; };
 		1A0000092C00000100000001 /* UpdateChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000192C00000100000001 /* UpdateChecker.swift */; };
 		1A00000A2C00000100000001 /* UpdateDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A00001A2C00000100000001 /* UpdateDownloader.swift */; };
+		1A00000B2C00000100000001 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A00001D2C00000100000001 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 				1A0000192C00000100000001 /* UpdateChecker.swift */,
 				1A00001A2C00000100000001 /* UpdateDownloader.swift */,
 				1A0000162C00000100000001 /* Assets.xcassets */,
+				1A00001D2C00000100000001 /* Localizable.strings */,
 			);
 			path = Breathlet;
 			sourceTree = "<group>";
@@ -80,6 +82,18 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXVariantGroup section */
+		1A00001D2C00000100000001 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1A00001B2C00000100000001 /* en */,
+				1A00001C2C00000100000001 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin PBXNativeTarget section */
 		1A0000402C00000100000001 /* Breathlet */ = {
@@ -139,8 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A0000062C00000100000001 /* Assets.xcassets in Resources */,
-				1A00001B2C00000100000001 /* en in Resources */,
-				1A00001C2C00000100000001 /* zh-Hans in Resources */,
+				1A00000B2C00000100000001 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
